@@ -1,4 +1,5 @@
 *.csproj.user
+*.DotSettings.user
 .vs/
 packages/
 bin/
