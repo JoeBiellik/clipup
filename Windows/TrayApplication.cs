@@ -189,7 +189,7 @@ namespace ClipUp.Windows
                 this.ProcessUpload(await provider.UploadImage(new ImageUploadOptions
                 {
                     UserAgent = Program.Name,
-                    Format = ImageFormat.Png
+                    Format = Settings.Instance.UploadFormat
                 }, image, progress));
 
                 form.Close();

@@ -75,11 +75,8 @@ namespace ClipUp.Windows
             {
                 try
                 {
+                    var json = providersJson["ProviderSettings"][Path.GetFileName(provider)]?.ToString().Trim() ?? "{}";
                     var type = LoadProviderType(provider);
-
-                    var json = providersJson["ProviderSettings"][Path.GetFileName(provider)]?.ToString();
-
-                    if (string.IsNullOrWhiteSpace(json)) json = "{}";
 
                     Providers.Add(Path.GetFileName(provider) ?? provider, JsonConvert.DeserializeObject(json, type) as IUploadProvider);
                 }
