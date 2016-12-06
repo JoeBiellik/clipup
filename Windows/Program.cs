@@ -5,20 +5,21 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
-using JoeBiellik.Logging;
 using JoeBiellik.Utils;
 using JoeBiellik.Utils.Hotkeys;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace ClipUp.Windows
 {
     internal static class Program
     {
         internal static readonly string Name = "ClipUp";
-        internal static readonly HotkeyManager HotkeyManager = new HotkeyManager();
         internal static readonly Dictionary<string, IUploadProvider> Providers = new Dictionary<string, IUploadProvider>();
+        internal static readonly HotkeyManager HotkeyManager = new HotkeyManager();
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         [STAThread]
@@ -27,8 +28,36 @@ namespace ClipUp.Windows
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            LogManager.Configuration = Logging.SetupLogger<TrayApplication>(true, false, true);
+            SetupLogging();
+            LoadProviders();
 
+            try
+            {
+                SingleInstance.Run(new TrayApplication());
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+
+        private static void SetupLogging()
+        {
+            var fileLog = new FileTarget
+            {
+                FileName = $"${{basedir}}/{typeof(Program).Assembly.GetName().Name}.log",
+                Layout = @"[${date:universalTime=true:format=yyyy-MM-ddTHH\:mm\:ssK}] ${level:uppercase=true}: ${message} ${exception:format=tostring}"
+            };
+
+            var config = new LoggingConfiguration();
+            config.AddTarget("file", fileLog);
+            config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, fileLog));
+
+            LogManager.Configuration = config;
+        }
+
+        private static void LoadProviders()
+        {
             var providersJson = JObject.Parse("{}");
 
             try
@@ -62,15 +91,6 @@ namespace ClipUp.Windows
 
             Settings.Instance.ProviderSettings = Providers.Where(p => p.Value is IConfigurableProvider).ToDictionary(p => p.Key, p => p.Value);
             Settings.Save();
-
-            try
-            {
-                SingleInstance.Run(new TrayApplication());
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
         }
 
         private static IUploadProvider LoadProvider(string file, object[] ctor)

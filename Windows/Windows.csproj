@@ -43,9 +43,6 @@
     <Reference Include="CommandLine">
       <HintPath>..\..\..\Visual Studio 2015\Projects\JoeBiellik.Utils\Logging\bin\Release\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="JoeBiellik.Logging">
-      <HintPath>..\..\..\Visual Studio 2015\Projects\JoeBiellik.Utils\Logging\bin\Release\JoeBiellik.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="JoeBiellik.Utils">
       <HintPath>..\..\..\Visual Studio 2015\Projects\JoeBiellik.Utils\bin\Release\JoeBiellik.Utils.dll</HintPath>
     </Reference>
