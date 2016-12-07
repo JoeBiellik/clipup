@@ -8,16 +8,6 @@ namespace ClipUp.Windows
     {
         protected override bool ShowWithoutActivation => true;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                var param = base.CreateParams;
-                param.ExStyle |= 8; // WS_EX_TOPMOST
-                return param;
-            }
-        }
-
         public int Progress
         {
             get { return this.progressBar.Value; }
