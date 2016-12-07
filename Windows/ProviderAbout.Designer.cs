@@ -35,15 +35,13 @@
             this.labelAuthor = new System.Windows.Forms.Label();
             this.linkAuthor = new System.Windows.Forms.LinkLabel();
             this.labelDescription = new System.Windows.Forms.Label();
-            this.panelBottom = new System.Windows.Forms.Panel();
-            this.panelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(223, 5);
+            this.buttonClose.Location = new System.Drawing.Point(223, 126);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
             this.buttonClose.TabIndex = 0;
@@ -113,15 +111,6 @@
             this.labelDescription.TabIndex = 5;
             this.labelDescription.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
             // 
-            // panelBottom
-            // 
-            this.panelBottom.Controls.Add(this.buttonClose);
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 121);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(310, 40);
-            this.panelBottom.TabIndex = 6;
-            // 
             // ProviderAbout
             // 
             this.AcceptButton = this.buttonClose;
@@ -130,7 +119,7 @@
             this.AutoSize = true;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(310, 161);
-            this.Controls.Add(this.panelBottom);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.linkAuthor);
             this.Controls.Add(this.labelAuthor);
@@ -146,7 +135,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About Provider";
             this.Load += new System.EventHandler(this.ProviderAbout_Load);
-            this.panelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,6 +149,5 @@
         private System.Windows.Forms.Label labelAuthor;
         private System.Windows.Forms.LinkLabel linkAuthor;
         private System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.Panel panelBottom;
     }
 }

@@ -133,19 +133,6 @@ namespace ClipUp.Windows
                 {
                     menu.Items.Add(new ToolStripMenuItem(provider.Value.Name, null, async (s, a) =>
                     {
-
-                        //var pro = Program.Providers.First(p => p.Value.Name == "Prntscr");
-                        //using (var form = new ProviderPreferences(pro.Value.Clone() as IUploadProvider))
-                        //{
-                        //    if (form.ShowDialog() == DialogResult.OK)
-                        //    {
-                        //        Program.Providers[pro.Key] = form.Provider;
-                        //    }
-                        //}
-
-
-
-
                         await this.UploadImage((IImageUploadProvider)provider.Value, Clipboard.GetImage());
                     }));
                 }

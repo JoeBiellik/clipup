@@ -43,19 +43,19 @@
             this.columnHeaderVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStripProvider = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageHotkeys = new System.Windows.Forms.TabPage();
             this.tabPageCapture = new System.Windows.Forms.TabPage();
             this.checkBoxCaptureWindowShadow = new System.Windows.Forms.CheckBox();
             this.checkBoxCaptureCursor = new System.Windows.Forms.CheckBox();
-            this.contextMenuStripProvider = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageProviders.SuspendLayout();
-            this.tabPageCapture.SuspendLayout();
             this.contextMenuStripProvider.SuspendLayout();
+            this.tabPageCapture.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -116,7 +116,7 @@
             this.checkBoxShowProgress.Location = new System.Drawing.Point(12, 33);
             this.checkBoxShowProgress.Name = "checkBoxShowProgress";
             this.checkBoxShowProgress.Size = new System.Drawing.Size(201, 17);
-            this.checkBoxShowProgress.TabIndex = 3;
+            this.checkBoxShowProgress.TabIndex = 1;
             this.checkBoxShowProgress.Text = "Show image &upload progress window";
             this.checkBoxShowProgress.UseVisualStyleBackColor = true;
             // 
@@ -126,7 +126,7 @@
             this.checkBoxOpenLink.Location = new System.Drawing.Point(12, 79);
             this.checkBoxOpenLink.Name = "checkBoxOpenLink";
             this.checkBoxOpenLink.Size = new System.Drawing.Size(181, 17);
-            this.checkBoxOpenLink.TabIndex = 2;
+            this.checkBoxOpenLink.TabIndex = 3;
             this.checkBoxOpenLink.Text = "&Open link in browser after upload";
             this.checkBoxOpenLink.UseVisualStyleBackColor = true;
             // 
@@ -136,7 +136,7 @@
             this.checkBoxCopyLink.Location = new System.Drawing.Point(12, 56);
             this.checkBoxCopyLink.Name = "checkBoxCopyLink";
             this.checkBoxCopyLink.Size = new System.Drawing.Size(186, 17);
-            this.checkBoxCopyLink.TabIndex = 1;
+            this.checkBoxCopyLink.TabIndex = 2;
             this.checkBoxCopyLink.Text = "&Copy link to clipboard after upload";
             this.checkBoxCopyLink.UseVisualStyleBackColor = true;
             // 
@@ -181,6 +181,7 @@
             this.listViewProviders.TabIndex = 0;
             this.listViewProviders.UseCompatibleStateImageBehavior = false;
             this.listViewProviders.View = System.Windows.Forms.View.Details;
+            this.listViewProviders.DoubleClick += new System.EventHandler(this.listViewProviders_DoubleClick);
             // 
             // columnHeaderName
             // 
@@ -199,6 +200,36 @@
             // 
             this.columnHeaderDescription.Text = "Description";
             this.columnHeaderDescription.Width = 134;
+            // 
+            // contextMenuStripProvider
+            // 
+            this.contextMenuStripProvider.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.aboutToolStripMenuItem});
+            this.contextMenuStripProvider.Name = "contextMenuStripProvider";
+            this.contextMenuStripProvider.Size = new System.Drawing.Size(130, 54);
+            this.contextMenuStripProvider.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripProvider_Opening);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.settingsToolStripMenuItem.Text = "&Settings...";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // tabPageHotkeys
             // 
@@ -242,35 +273,6 @@
             this.checkBoxCaptureCursor.Text = "Capture &mouse cursor in screenshots";
             this.checkBoxCaptureCursor.UseVisualStyleBackColor = true;
             // 
-            // contextMenuStripProvider
-            // 
-            this.contextMenuStripProvider.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.aboutToolStripMenuItem});
-            this.contextMenuStripProvider.Name = "contextMenuStripProvider";
-            this.contextMenuStripProvider.Size = new System.Drawing.Size(153, 76);
-            this.contextMenuStripProvider.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripProvider_Opening);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "&About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.settingsToolStripMenuItem.Text = "&Settings...";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(122, 6);
-            // 
             // Preferences
             // 
             this.AcceptButton = this.buttonOk;
@@ -294,9 +296,9 @@
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
             this.tabPageProviders.ResumeLayout(false);
+            this.contextMenuStripProvider.ResumeLayout(false);
             this.tabPageCapture.ResumeLayout(false);
             this.tabPageCapture.PerformLayout();
-            this.contextMenuStripProvider.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

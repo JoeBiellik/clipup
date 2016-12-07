@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
@@ -38,6 +40,20 @@ namespace ClipUp.Windows
             this.listViewProviders.Columns[3].Width = this.listViewProviders.ClientSize.Width - this.listViewProviders.Columns[0].Width - 60 - 60;
         }
 
+        private void listViewProviders_DoubleClick(object sender, EventArgs e)
+        {
+            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+
+            if (provider.Value is IConfigurableProvider)
+            {
+                this.settingsToolStripMenuItem_Click(null, null);
+            }
+            else
+            {
+                this.aboutToolStripMenuItem_Click(null, null);
+            }
+        }
+
         private void contextMenuStripProvider_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var mousePosition = this.listViewProviders.PointToClient(MousePosition);
@@ -51,8 +67,9 @@ namespace ClipUp.Windows
 
             var configurable = provider.Value is IConfigurableProvider;
 
-                this.contextMenuStripProvider.Items[0].Visible = configurable;
-                this.contextMenuStripProvider.Items[1].Visible = configurable;
+            this.contextMenuStripProvider.Items[0].Visible = configurable;
+            this.contextMenuStripProvider.Items[1].Visible = configurable;
+            this.contextMenuStripProvider.Items[2].Font = new Font(this.contextMenuStripProvider.Items[2].Font.FontFamily, this.contextMenuStripProvider.Items[2].Font.Size, !configurable ? FontStyle.Bold : FontStyle.Regular);
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
