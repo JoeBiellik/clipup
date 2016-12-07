@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Extentions.cs" />
     <Compile Include="Interfaces\IConfigurableProvider.cs" />
-    <Compile Include="MultiPartFile.cs" />
+    <Compile Include="MultipartFile.cs" />
     <Compile Include="UploadOptions.cs" />
     <Compile Include="UploadResult.cs" />
     <Compile Include="Interfaces\IImageUploadProvider.cs" />

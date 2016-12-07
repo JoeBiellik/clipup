@@ -5,16 +5,36 @@ using System.Text;
 
 namespace ClipUp.Sdk
 {
-    public class MultiPartUpload
+    /// <summary>
+    /// Geneate the request data for a HTTP multipart upload.
+    /// </summary>
+    public class MultipartUpload
     {
         private readonly string boundary;
         private readonly string boundaryCode;
 
-        public IList<MultiPartFile> Files { get; } = new List<MultiPartFile>();
+        /// <summary>
+        /// Gets the list of files to be uploaded as part of the request.
+        /// </summary>
+        /// <value>The upload files.</value>
+        public IList<MultipartFile> Files { get; } = new List<MultipartFile>();
+
+        /// <summary>
+        /// Gets the list of forms to be uploaded as part of the request.
+        /// </summary>
+        /// <value>The upload forms.</value>
         public IDictionary<string, object> Forms { get; } = new Dictionary<string, object>();
 
+        /// <summary>
+        /// Gets the content type of the multipart upload request.
+        /// </summary>
+        /// <value>The upload content type.</value>
         public string ContentType => $"multipart/form-data; boundary=--------------{this.boundaryCode}";
 
+        /// <summary>
+        /// Gets the content length of the multipart upload request.
+        /// </summary>
+        /// <value>The upload content length.</value>
         public long ContentLength
         {
             get
@@ -41,6 +61,10 @@ namespace ClipUp.Sdk
             }
         }
 
+        /// <summary>
+        /// Gets the request data of the multipart upload.
+        /// </summary>
+        /// <value>The upload request data.</value>
         public byte[] RequestData
         {
             get
@@ -69,13 +93,16 @@ namespace ClipUp.Sdk
             }
         }
 
-        public MultiPartUpload()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultipartUpload"/> class.
+        /// </summary>
+        public MultipartUpload()
         {
             this.boundaryCode = DateTime.Now.Ticks.GetHashCode() + "548130";
             this.boundary = $"\r\n----------------{this.boundaryCode}";
         }
 
-        private static string CreateFileBoundaryHeader(MultiPartFile multiPartFile)
+        private static string CreateFileBoundaryHeader(MultipartFile multiPartFile)
         {
             return $"\r\nContent-Disposition: form-data; name=\"{multiPartFile.FieldName}\"; filename=\"{Path.GetFileName(multiPartFile.FileName)}\"\r\n" + $"Content-Type: {multiPartFile.ContentType}\r\n" + $"Content-Transfer-Encoding: {multiPartFile.ContentTransferEncoding}\r\n\r\n";
         }
@@ -84,8 +111,8 @@ namespace ClipUp.Sdk
         {
             return $"\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}";
         }
-        
-        private static void StreamFileContents(byte[] data, MultiPartFile file, Stream stream)
+
+        private static void StreamFileContents(byte[] data, MultipartFile file, Stream stream)
         {
             switch (file.ContentTransferEncoding)
             {

@@ -24,9 +24,9 @@ namespace ClipUp.Providers.Prntscr
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)
         {
-            var multiPartUpload = new MultiPartUpload();
+            var multipartUpload = new MultipartUpload();
 
-            multiPartUpload.Files.Add(new MultiPartFile
+            multipartUpload.Files.Add(new MultipartFile
             {
                 FieldName = "image",
                 FileName = "upload." + options.Extention,
@@ -38,7 +38,7 @@ namespace ClipUp.Providers.Prntscr
 
             using (var client = new WebClient())
             {
-                client.Headers[HttpRequestHeader.ContentType] = multiPartUpload.ContentType;
+                client.Headers[HttpRequestHeader.ContentType] = multipartUpload.ContentType;
                 client.Headers.Add(HttpRequestHeader.UserAgent, options.UserAgent);
 
                 client.UploadProgressChanged += (s, e) =>
@@ -53,7 +53,7 @@ namespace ClipUp.Providers.Prntscr
                     progress.Report(current);
                 };
 
-                var result = await client.UploadDataTaskAsync("http://prntscr.com/upload.php", multiPartUpload.RequestData);
+                var result = await client.UploadDataTaskAsync("http://prntscr.com/upload.php", multipartUpload.RequestData);
 
                 // TODO: Check result
 

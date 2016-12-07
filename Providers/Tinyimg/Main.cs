@@ -22,9 +22,9 @@ namespace ClipUp.Providers.Tinyimg
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)
         {
-            var multiPartUpload = new MultiPartUpload();
+            var multipartUpload = new MultipartUpload();
 
-            multiPartUpload.Files.Add(new MultiPartFile
+            multipartUpload.Files.Add(new MultipartFile
             {
                 FieldName = "qqfile",
                 ContentType = "image/png",
@@ -36,7 +36,7 @@ namespace ClipUp.Providers.Tinyimg
 
             using (var client = new WebClient())
             {
-                client.Headers[HttpRequestHeader.ContentType] = multiPartUpload.ContentType;
+                client.Headers[HttpRequestHeader.ContentType] = multipartUpload.ContentType;
                 client.Headers.Add(HttpRequestHeader.UserAgent, options.UserAgent);
 
                 client.UploadProgressChanged += (s, e) =>
@@ -51,7 +51,7 @@ namespace ClipUp.Providers.Tinyimg
                     progress.Report(current);
                 };
 
-                var result = await client.UploadDataTaskAsync(UPLOAD_URL, multiPartUpload.RequestData);
+                var result = await client.UploadDataTaskAsync(UPLOAD_URL, multipartUpload.RequestData);
 
                 var json = new JavaScriptSerializer().Deserialize<Dictionary<string, string>>(Encoding.Default.GetString(result));
 
