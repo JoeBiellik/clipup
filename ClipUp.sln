@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK", "SDK\SDK.csproj", "{1E5647D5-E3B0-46DC-8501-EED32ED6D249}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prntscr", "Providers\Prntscr\Prntscr.csproj", "{79054A4B-0F2D-4CC5-9DDE-C1B1AF5C6DAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sprunge", "Providers\Sprunge\Sprunge.csproj", "{47974D61-930B-460D-9C7F-F9D0BCBB376A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cubeupload", "Providers\Cubeupload\Cubeupload.csproj", "{DF08B192-2A5C-4608-9639-08ABF675979B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{47974D61-930B-460D-9C7F-F9D0BCBB376A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47974D61-930B-460D-9C7F-F9D0BCBB376A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47974D61-930B-460D-9C7F-F9D0BCBB376A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF08B192-2A5C-4608-9639-08ABF675979B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF08B192-2A5C-4608-9639-08ABF675979B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF08B192-2A5C-4608-9639-08ABF675979B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF08B192-2A5C-4608-9639-08ABF675979B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +76,6 @@ Global
 		{911ECD87-E953-45B7-BA29-F3DCBF4696BD} = {44F292AD-1DC0-4F01-A6FD-920913862AE6}
 		{79054A4B-0F2D-4CC5-9DDE-C1B1AF5C6DAF} = {44F292AD-1DC0-4F01-A6FD-920913862AE6}
 		{47974D61-930B-460D-9C7F-F9D0BCBB376A} = {44F292AD-1DC0-4F01-A6FD-920913862AE6}
+		{DF08B192-2A5C-4608-9639-08ABF675979B} = {44F292AD-1DC0-4F01-A6FD-920913862AE6}
 	EndGlobalSection
 EndGlobal
