@@ -20,7 +20,13 @@ namespace ClipUp.Providers.Prntscr
         public override string Description => "prntscr.com image upload";
         public override long MaxSize => -1;
 
-        public bool DirectLink { get; set; }
+        /// <summary>
+        /// Gets or sets whether the result URL should be a direct link to the uploaded image.
+        /// Defaults to true.
+        /// User configurable.
+        /// </summary>
+        /// <seealso cref="UploadResult.Url"/>
+        public bool DirectLink { get; set; } = true;
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)
         {

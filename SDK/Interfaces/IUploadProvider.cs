@@ -38,6 +38,8 @@ namespace ClipUp.Sdk.Interfaces
 
         /// <summary>
         /// Gets the maximum upload size supported by the upload provider.
+        ///
+        /// Set to -1 to disable limit.
         /// </summary>
         /// <value>The maximum supported upload size in bytes.</value>
         [JsonIgnore]

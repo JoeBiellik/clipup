@@ -6,13 +6,13 @@ namespace ClipUp.Windows
 {
     public partial class ProviderPreferences : Form
     {
-        public IUploadProvider Provider { get; private set; }
+        public IUploadProvider Provider { get; }
 
         public ProviderPreferences(IUploadProvider provider)
         {
             if (!(provider is IConfigurableProvider))
             {
-                throw new ArgumentException("Provider must impliment IConfigurableProvider", nameof(provider));
+                throw new ArgumentException("Provider must implement IConfigurableProvider", nameof(provider));
             }
 
             this.Provider = provider;

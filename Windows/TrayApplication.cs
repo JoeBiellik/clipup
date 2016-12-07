@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -56,16 +55,19 @@ namespace ClipUp.Windows
         {
             if (this.overlay.Visible) return;
 
-            ScreenCapture.CaptureAllScreens().Save(@"CaptureAllScreens.png", ImageFormat.Png);
-            ScreenCapture.CapturePrimaryScreen().Save(@"CapturePrimaryScreen.png", ImageFormat.Png);
-            ScreenCapture.CaptureActiveWindow().Save(@"CaptureActiveWindow.png", ImageFormat.Png);
-            ScreenCapture.CaptureActiveWindow(true).Save(@"CaptureActiveWindow-shadow.png", ImageFormat.Png);
-
-            if (this.overlay.ShowDialog() == DialogResult.OK)
+            if (e.Hotkey.Tag.ToString() == "PrintScreen")
             {
-                this.overlay.SelectedImage?.Save(@"selected.png", ImageFormat.Png);
+                //ScreenCapture.CaptureAllScreens().Save(@"CaptureAllScreens.png", ImageFormat.Png);
+                //ScreenCapture.CapturePrimaryScreen().Save(@"CapturePrimaryScreen.png", ImageFormat.Png);
+                //ScreenCapture.CaptureActiveWindow().Save(@"CaptureActiveWindow.png", ImageFormat.Png);
+                //ScreenCapture.CaptureActiveWindow(true).Save(@"CaptureActiveWindow-shadow.png", ImageFormat.Png);
 
-                await this.UploadImage(Program.Providers.Where(p => p.Value is IImageUploadProvider).Select(p => p.Value).Cast<IImageUploadProvider>().First(), this.overlay.SelectedImage);
+                if (this.overlay.ShowDialog() == DialogResult.OK)
+                {
+                    //this.overlay.SelectedImage?.Save(@"selected.png", ImageFormat.Png);
+
+                    await this.UploadImage(Program.Providers.Where(p => p.Value is IImageUploadProvider).Select(p => p.Value).Cast<IImageUploadProvider>().First(), this.overlay.SelectedImage);
+                }
             }
 
             this.overlay.SelectedArea = Rectangle.Empty;
