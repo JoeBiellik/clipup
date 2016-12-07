@@ -16,10 +16,16 @@ namespace ClipUp.Sdk.Providers
         public abstract Version Version { get; }
 
         /// <inheritdoc />
-        public abstract string Link { get; }
+        public abstract string Website { get; }
 
         /// <inheritdoc />
         public abstract string Description { get; }
+
+        /// <inheritdoc />
+        public abstract string AuthorName { get; }
+
+        /// <inheritdoc />
+        public abstract string AuthorWebsite { get; }
 
         /// <inheritdoc />
         public abstract long MaxSize { get; }

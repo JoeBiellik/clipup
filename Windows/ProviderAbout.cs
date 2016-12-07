@@ -25,11 +25,11 @@ namespace ClipUp.Windows
             if (this.provider is IImageUploadProvider) this.labelAbout.Text = this.labelAbout.Text.Replace("text", "image");
             this.linkLink.Location = new Point(this.labelAbout.Location.X + this.labelAbout.Width - 6, this.linkLink.Location.Y);
 
-            this.linkLink.Text = this.provider.Link;
+            this.linkLink.Text = this.provider.Website;
 
-            //this.labelAuthor.Text = "Author: ";
+            this.labelAuthor.Text = $"Author: {this.provider.AuthorName}";
 
-            //this.linkAuthor.Text = "";
+            this.linkAuthor.Text = this.provider.AuthorWebsite;
 
             this.labelDescription.Text = this.provider.Description;
         }

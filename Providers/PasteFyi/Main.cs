@@ -14,8 +14,10 @@ namespace ClipUp.Providers.PasteFyi
 
         public override string Name => "paste.fyi";
         public override Version Version => new Version(1, 0, 0);
-        public override string Link => "http://paste.fyi/";
+        public override string Website => "http://paste.fyi/";
         public override string Description => "paste.fyi text upload";
+        public override string AuthorName => "Joe Biellik";
+        public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
 
         public override async Task<UploadResult> UploadText(TextUploadOptions options, string text)

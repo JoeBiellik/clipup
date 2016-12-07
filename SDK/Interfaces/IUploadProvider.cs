@@ -27,7 +27,7 @@ namespace ClipUp.Sdk.Interfaces
         /// </summary>
         /// <value>The provider website.</value>
         [JsonIgnore]
-        string Link { get; }
+        string Website { get; }
 
         /// <summary>
         /// Gets the description of the upload provider.
@@ -35,6 +35,20 @@ namespace ClipUp.Sdk.Interfaces
         /// <value>The provider description.</value>
         [JsonIgnore]
         string Description { get; }
+
+        /// <summary>
+        /// Gets the name of the provider author.
+        /// </summary>
+        /// <value>The provider author name.</value>
+        [JsonIgnore]
+        string AuthorName { get; }
+
+        /// <summary>
+        /// Gets the website of the provider author.
+        /// </summary>
+        /// <value>The provider author website.</value>
+        [JsonIgnore]
+        string AuthorWebsite { get; }
 
         /// <summary>
         /// Gets the maximum upload size supported by the upload provider.

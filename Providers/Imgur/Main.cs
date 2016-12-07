@@ -18,8 +18,10 @@ namespace ClipUp.Providers.Imgur
 
         public override string Name => "Imgur";
         public override Version Version => new Version(1, 0, 0);
-        public override string Link => "https://imgur.com/";
+        public override string Website => "https://imgur.com/";
         public override string Description => "Imgur.com image upload";
+        public override string AuthorName => "Joe Biellik";
+        public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)

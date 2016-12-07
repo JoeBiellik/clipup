@@ -13,10 +13,12 @@ namespace ClipUp.Providers.Pastebin
         private const string UPLOAD_URL = "http://pastebin.com/api/api_post.php";
         private const string KEY = "64269a656668650a05cf01becfb9d05c";
 
-        public override string Name => "Pastebin";
+        public override string Name => "Pastebin.com";
         public override Version Version => new Version(1, 0, 0);
-        public override string Link => "http://pastebin.com/";
+        public override string Website => "http://pastebin.com/";
         public override string Description => "Pastebin.com text upload";
+        public override string AuthorName => "Joe Biellik";
+        public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
 
         public override async Task<UploadResult> UploadText(TextUploadOptions options, string text)

@@ -14,8 +14,10 @@ namespace ClipUp.Providers.Sprunge
 
         public override string Name => "sprunge";
         public override Version Version => new Version(1, 0, 0);
-        public override string Link => "http://sprunge.us/";
+        public override string Website => "http://sprunge.us/";
         public override string Description => "sprunge text upload";
+        public override string AuthorName => "Joe Biellik";
+        public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
 
         public override async Task<UploadResult> UploadText(TextUploadOptions options, string text)

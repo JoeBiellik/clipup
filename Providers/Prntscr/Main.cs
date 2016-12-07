@@ -14,10 +14,12 @@ namespace ClipUp.Providers.Prntscr
 {
     public class Prntscr : ImageUploadProvider, IConfigurableProvider
     {
-        public override string Name => "Prntscr";
+        public override string Name => "prntscr.com";
         public override Version Version => new Version(1, 0, 0);
-        public override string Link => "http://prntscr.com/";
+        public override string Website => "http://prntscr.com/";
         public override string Description => "prntscr.com image upload";
+        public override string AuthorName => "Joe Biellik";
+        public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
 
         /// <summary>

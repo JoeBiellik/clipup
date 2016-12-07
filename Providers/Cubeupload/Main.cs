@@ -16,8 +16,10 @@ namespace ClipUp.Providers.Cubeupload
 
         public override string Name => "Cubeupload";
         public override Version Version => new Version(1, 0, 0);
-        public override string Link => "http://cubeupload.com/";
+        public override string Website => "http://cubeupload.com/";
         public override string Description => "cubeupload.com image upload";
+        public override string AuthorName => "Joe Biellik";
+        public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)
@@ -62,7 +64,7 @@ namespace ClipUp.Providers.Cubeupload
                 return new UploadResult
                 {
                     Success = true,
-                    Url = this.Link + "im/" + json["file_name"]
+                    Url = this.Website + "im/" + json["file_name"]
                 };
             }
         }
