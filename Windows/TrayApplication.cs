@@ -80,7 +80,7 @@ namespace ClipUp.Windows
             this.icon.ContextMenuStrip.Items.Clear();
 
             this.icon.ContextMenuStrip.Items.Add(new ToolStripLabel("Screenshot") { Enabled = false });
-            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Take Screenshot", null, (s, a) => { this.HotkeyManager_KeyPressed(null, null); })
+            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Take Screenshot...", null, (s, a) => { this.HotkeyManager_KeyPressed(null, null); })
             {
                 ShortcutKeyDisplayString = "PrtScn"
             });
@@ -89,7 +89,7 @@ namespace ClipUp.Windows
             this.BuildProviderMenu(this.icon.ContextMenuStrip);
 
             this.icon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("&Settings", null, (s, a) => { new Preferences().ShowDialog(); }));
+            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("&Preferences...", null, (s, a) => { new Preferences().ShowDialog(); }));
             this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("&Exit", null, (s, a) => { Application.Exit(); }));
         }
 

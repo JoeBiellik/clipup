@@ -28,22 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.checkBoxShowProgress = new System.Windows.Forms.CheckBox();
             this.checkBoxOpenLink = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyLink = new System.Windows.Forms.CheckBox();
             this.checkBoxShowNotification = new System.Windows.Forms.CheckBox();
+            this.tabPageProviders = new System.Windows.Forms.TabPage();
+            this.listViewProviders = new System.Windows.Forms.ListView();
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageHotkeys = new System.Windows.Forms.TabPage();
             this.tabPageCapture = new System.Windows.Forms.TabPage();
             this.checkBoxCaptureWindowShadow = new System.Windows.Forms.CheckBox();
             this.checkBoxCaptureCursor = new System.Windows.Forms.CheckBox();
-            this.tabPageProxy = new System.Windows.Forms.TabPage();
-            this.checkBoxShowProgress = new System.Windows.Forms.CheckBox();
+            this.contextMenuStripProvider = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
+            this.tabPageProviders.SuspendLayout();
             this.tabPageCapture.SuspendLayout();
+            this.contextMenuStripProvider.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -75,9 +87,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPageGeneral);
+            this.tabControl.Controls.Add(this.tabPageProviders);
             this.tabControl.Controls.Add(this.tabPageHotkeys);
             this.tabControl.Controls.Add(this.tabPageCapture);
-            this.tabControl.Controls.Add(this.tabPageProxy);
             this.tabControl.Location = new System.Drawing.Point(5, 5);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -97,6 +109,16 @@
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowProgress
+            // 
+            this.checkBoxShowProgress.AutoSize = true;
+            this.checkBoxShowProgress.Location = new System.Drawing.Point(12, 33);
+            this.checkBoxShowProgress.Name = "checkBoxShowProgress";
+            this.checkBoxShowProgress.Size = new System.Drawing.Size(201, 17);
+            this.checkBoxShowProgress.TabIndex = 3;
+            this.checkBoxShowProgress.Text = "Show image &upload progress window";
+            this.checkBoxShowProgress.UseVisualStyleBackColor = true;
             // 
             // checkBoxOpenLink
             // 
@@ -127,6 +149,56 @@
             this.checkBoxShowNotification.TabIndex = 0;
             this.checkBoxShowNotification.Text = "Show &notification on upload";
             this.checkBoxShowNotification.UseVisualStyleBackColor = true;
+            // 
+            // tabPageProviders
+            // 
+            this.tabPageProviders.Controls.Add(this.listViewProviders);
+            this.tabPageProviders.Location = new System.Drawing.Point(4, 22);
+            this.tabPageProviders.Name = "tabPageProviders";
+            this.tabPageProviders.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProviders.Size = new System.Drawing.Size(442, 164);
+            this.tabPageProviders.TabIndex = 2;
+            this.tabPageProviders.Text = "Providers";
+            this.tabPageProviders.UseVisualStyleBackColor = true;
+            // 
+            // listViewProviders
+            // 
+            this.listViewProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewProviders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderVersion,
+            this.columnHeaderType,
+            this.columnHeaderDescription});
+            this.listViewProviders.ContextMenuStrip = this.contextMenuStripProvider;
+            this.listViewProviders.FullRowSelect = true;
+            this.listViewProviders.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewProviders.Location = new System.Drawing.Point(6, 6);
+            this.listViewProviders.Name = "listViewProviders";
+            this.listViewProviders.ShowGroups = false;
+            this.listViewProviders.Size = new System.Drawing.Size(430, 152);
+            this.listViewProviders.TabIndex = 0;
+            this.listViewProviders.UseCompatibleStateImageBehavior = false;
+            this.listViewProviders.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 150;
+            // 
+            // columnHeaderVersion
+            // 
+            this.columnHeaderVersion.Text = "Version";
+            // 
+            // columnHeaderType
+            // 
+            this.columnHeaderType.Text = "Type";
+            // 
+            // columnHeaderDescription
+            // 
+            this.columnHeaderDescription.Text = "Description";
+            this.columnHeaderDescription.Width = 134;
             // 
             // tabPageHotkeys
             // 
@@ -170,25 +242,34 @@
             this.checkBoxCaptureCursor.Text = "Capture &mouse cursor in screenshots";
             this.checkBoxCaptureCursor.UseVisualStyleBackColor = true;
             // 
-            // tabPageProxy
+            // contextMenuStripProvider
             // 
-            this.tabPageProxy.Location = new System.Drawing.Point(4, 22);
-            this.tabPageProxy.Name = "tabPageProxy";
-            this.tabPageProxy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProxy.Size = new System.Drawing.Size(442, 164);
-            this.tabPageProxy.TabIndex = 2;
-            this.tabPageProxy.Text = "Proxy";
-            this.tabPageProxy.UseVisualStyleBackColor = true;
+            this.contextMenuStripProvider.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.aboutToolStripMenuItem});
+            this.contextMenuStripProvider.Name = "contextMenuStripProvider";
+            this.contextMenuStripProvider.Size = new System.Drawing.Size(153, 76);
+            this.contextMenuStripProvider.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripProvider_Opening);
             // 
-            // checkBoxShowProgress
+            // aboutToolStripMenuItem
             // 
-            this.checkBoxShowProgress.AutoSize = true;
-            this.checkBoxShowProgress.Location = new System.Drawing.Point(12, 33);
-            this.checkBoxShowProgress.Name = "checkBoxShowProgress";
-            this.checkBoxShowProgress.Size = new System.Drawing.Size(201, 17);
-            this.checkBoxShowProgress.TabIndex = 3;
-            this.checkBoxShowProgress.Text = "Show image &upload progress window";
-            this.checkBoxShowProgress.UseVisualStyleBackColor = true;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Text = "&Settings...";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(122, 6);
             // 
             // Preferences
             // 
@@ -212,8 +293,10 @@
             this.tabControl.ResumeLayout(false);
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
+            this.tabPageProviders.ResumeLayout(false);
             this.tabPageCapture.ResumeLayout(false);
             this.tabPageCapture.PerformLayout();
+            this.contextMenuStripProvider.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -229,9 +312,18 @@
         private System.Windows.Forms.CheckBox checkBoxShowNotification;
         private System.Windows.Forms.CheckBox checkBoxCaptureWindowShadow;
         private System.Windows.Forms.CheckBox checkBoxCaptureCursor;
-        private System.Windows.Forms.TabPage tabPageProxy;
+        private System.Windows.Forms.TabPage tabPageProviders;
         private System.Windows.Forms.TabPage tabPageHotkeys;
         private System.Windows.Forms.CheckBox checkBoxOpenLink;
         private System.Windows.Forms.CheckBox checkBoxShowProgress;
+        private System.Windows.Forms.ListView listViewProviders;
+        private System.Windows.Forms.ColumnHeader columnHeaderName;
+        private System.Windows.Forms.ColumnHeader columnHeaderVersion;
+        private System.Windows.Forms.ColumnHeader columnHeaderType;
+        private System.Windows.Forms.ColumnHeader columnHeaderDescription;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripProvider;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

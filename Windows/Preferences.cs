@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using ClipUp.Sdk.Interfaces;
 
 namespace ClipUp.Windows
 {
@@ -12,12 +14,68 @@ namespace ClipUp.Windows
 
         private void Preferences_Load(object sender, EventArgs e)
         {
+            // General
             this.checkBoxShowNotification.Checked = Settings.Instance.ShowNotification;
             this.checkBoxShowProgress.Checked = Settings.Instance.ShowProgress;
             this.checkBoxCopyLink.Checked = Settings.Instance.CopyLink;
             this.checkBoxOpenLink.Checked = Settings.Instance.OpenLink;
+
+            // Capture
             this.checkBoxCaptureCursor.Checked = Settings.Instance.CaptureCursor;
             this.checkBoxCaptureWindowShadow.Checked = Settings.Instance.CaptureWindowShadow;
+
+            // Providers
+            foreach (var provider in Program.Providers)
+            {
+                this.listViewProviders.Items.Add(new ListViewItem(new[] { provider.Value.Name, provider.Value.Version.ToString(), this.GetProviderType(provider.Value), provider.Value.Description })
+                {
+                    Tag = provider.Key
+                });
+            }
+
+            this.listViewProviders.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            this.listViewProviders.Columns[0].Width += 10;
+            this.listViewProviders.Columns[3].Width = this.listViewProviders.ClientSize.Width - this.listViewProviders.Columns[0].Width - 60 - 60;
+        }
+
+        private void contextMenuStripProvider_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var mousePosition = this.listViewProviders.PointToClient(MousePosition);
+            var hit = this.listViewProviders.HitTest(mousePosition);
+
+            e.Cancel = hit.Item == null;
+
+            if (e.Cancel) return;
+
+            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+
+            var configurable = provider.Value is IConfigurableProvider;
+
+                this.contextMenuStripProvider.Items[0].Visible = configurable;
+                this.contextMenuStripProvider.Items[1].Visible = configurable;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+
+            using (var form = new ProviderPreferences(provider.Value.Clone() as IUploadProvider))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    Program.Providers[provider.Key] = form.Provider;
+                }
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+
+            using (var form = new ProviderAbout(provider.Value.Clone() as IUploadProvider))
+            {
+                form.ShowDialog();
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -37,6 +95,13 @@ namespace ClipUp.Windows
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private string GetProviderType(IUploadProvider provider)
+        {
+            if (provider is IImageUploadProvider) return "Image";
+            if (provider is ITextUploadProvider) return "Text";
+            return "Unknown";
         }
     }
 }
