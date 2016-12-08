@@ -19,6 +19,7 @@ The following offical providers are in this repository and ship with the applica
 Name | Type | Status
 ---- | ---- | ------
 [Cubeupload](http://cubeupload.com/) | Image | Working
+[GitHub Gist](https://gist.github.com/) | Text | Working
 [Imgur](https://imgur.com/) | Image | Working
 [Pastebin.com](http://pastebin.com/) | Text | Working
 [paste.fyi](http://paste.fyi/) | Text | Working
