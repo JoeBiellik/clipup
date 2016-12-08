@@ -48,6 +48,9 @@
       <Name>SDK</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(OutputPath)Prntscr.dll" DestinationFiles="$(PluginDestination)" />
