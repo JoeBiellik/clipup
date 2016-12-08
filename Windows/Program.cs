@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,7 +17,6 @@ namespace ClipUp.Windows
     internal static class Program
     {
         internal static readonly string Name = "ClipUp";
-        internal static readonly Dictionary<string, IUploadProvider> Providers = new Dictionary<string, IUploadProvider>();
         internal static readonly HotkeyManager HotkeyManager = new HotkeyManager();
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -33,7 +31,10 @@ namespace ClipUp.Windows
 
             try
             {
-                SingleInstance.Run(new TrayApplication());
+                using (var tray = new TrayApplication())
+                {
+                    SingleInstance.Run(tray);
+                }
             }
             catch (Exception ex)
             {
@@ -58,12 +59,12 @@ namespace ClipUp.Windows
 
         private static void LoadProviders()
         {
+            if (!Settings.FileExists) Settings.Save();
+
             var providersJson = JObject.Parse("{}");
 
             try
             {
-                Settings.Save();
-
                 providersJson = JObject.Parse(File.ReadAllText(Settings.Path));
             }
             catch (Exception ex)
@@ -73,12 +74,21 @@ namespace ClipUp.Windows
 
             foreach (var provider in IO.GetFiles("Providers", "*.dll"))
             {
+                var key = Path.GetFileNameWithoutExtension(provider) ?? provider;
+
                 try
                 {
-                    var json = providersJson["ProviderSettings"][Path.GetFileName(provider)]?.ToString().Trim() ?? "{}";
-                    var type = LoadProviderType(provider);
+                    var json = providersJson["Providers"]?[key]?["Settings"]?.ToString() ?? "{}";
+                    var type = Assembly.LoadFrom(provider).GetTypes().First(t => t.GetInterface(typeof(IUploadProvider).Name) != null && !t.IsAbstract);
 
-                    Providers.Add(Path.GetFileName(provider) ?? provider, JsonConvert.DeserializeObject(json, type) as IUploadProvider);
+                    if (Settings.Instance.Providers.ContainsKey(key))
+                    {
+                        Settings.Instance.Providers[key].Provider = JsonConvert.DeserializeObject(json, type) as IUploadProvider;
+                    }
+                    else
+                    {
+                        Settings.Instance.Providers.Add(key, new UploadProviderSettings { Provider = JsonConvert.DeserializeObject(json, type) as IUploadProvider });
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -86,46 +96,7 @@ namespace ClipUp.Windows
                 }
             }
 
-            Settings.Instance.ProviderSettings = Providers.Where(p => p.Value is IConfigurableProvider).ToDictionary(p => p.Key, p => p.Value);
             Settings.Save();
-        }
-
-        private static IUploadProvider LoadProvider(string file, object[] ctor)
-        {
-            try
-            {
-                var assembly = Assembly.LoadFrom(file);
-
-                foreach (var type in assembly.GetTypes().Where(type => type.GetInterface(typeof(IUploadProvider).Name) != null && !type.IsAbstract))
-                {
-                    return (IUploadProvider)Activator.CreateInstance(type, ctor);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-
-            return null;
-        }
-
-        private static Type LoadProviderType(string file)
-        {
-            try
-            {
-                var assembly = Assembly.LoadFrom(file);
-
-                foreach (var type in assembly.GetTypes().Where(type => type.GetInterface(typeof(IUploadProvider).Name) != null && !type.IsAbstract))
-                {
-                    return type;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-
-            return null;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
 
@@ -15,6 +16,8 @@ namespace ClipUp.Windows
 
         private void Preferences_Load(object sender, EventArgs e)
         {
+            this.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ClipUp.Windows.Resources.tray.ico"));
+
             // General
             this.checkBoxShowNotification.Checked = Settings.Instance.ShowNotification;
             this.checkBoxShowProgress.Checked = Settings.Instance.ShowProgress;
@@ -26,11 +29,12 @@ namespace ClipUp.Windows
             this.checkBoxCaptureWindowShadow.Checked = Settings.Instance.CaptureWindowShadow;
 
             // Providers
-            foreach (var provider in Program.Providers)
+            foreach (var provider in Settings.Instance.Providers)
             {
-                this.listViewProviders.Items.Add(new ListViewItem(new[] { provider.Value.Name, provider.Value.Version.ToString(), this.GetProviderType(provider.Value), provider.Value.Description })
+                this.listViewProviders.Items.Add(new ListViewItem(new[] { provider.Value.Provider.Name, provider.Value.Provider.Version.ToString(), this.GetProviderType(provider.Value.Provider), provider.Value.Provider.Description })
                 {
-                    Tag = provider.Key
+                    Tag = provider.Key,
+                    ForeColor = provider.Value.Enabled ? Color.Black : Color.Gray
                 });
             }
 
@@ -41,9 +45,9 @@ namespace ClipUp.Windows
 
         private void listViewProviders_DoubleClick(object sender, EventArgs e)
         {
-            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
 
-            if (provider.Value is IConfigurableProvider)
+            if (provider.Value.Provider is IConfigurableProvider)
             {
                 this.settingsToolStripMenuItem_Click(null, null);
             }
@@ -63,33 +67,46 @@ namespace ClipUp.Windows
             if (e.Cancel) return;
             if (this.listViewProviders.SelectedItems.Count < 1) return;
 
-            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
 
-            var configurable = provider.Value is IConfigurableProvider;
+            var configurable = provider.Value.Provider is IConfigurableProvider;
 
             this.contextMenuStripProvider.Items[0].Visible = configurable;
             this.contextMenuStripProvider.Items[1].Visible = configurable;
             this.contextMenuStripProvider.Items[2].Font = new Font(this.contextMenuStripProvider.Items[2].Font.FontFamily, this.contextMenuStripProvider.Items[2].Font.Size, !configurable ? FontStyle.Bold : FontStyle.Regular);
+            this.contextMenuStripProvider.Items[4].Text = provider.Value.Enabled ? "&Disable" : "&Enable";
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
 
-            using (var form = new ProviderPreferences(provider.Value.Clone() as IUploadProvider))
+            using (var form = new ProviderPreferences(provider.Value.Provider.Clone() as IUploadProvider))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Program.Providers[provider.Key] = form.Provider;
+                    Settings.Instance.Providers[provider.Key].Provider = form.Provider;
+
+                    Settings.Save();
                 }
             }
         }
 
+        private void disableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+
+            var enabled = this.disableToolStripMenuItem.Text == "Enable";
+
+            Settings.Instance.Providers[provider.Key].Enabled = enabled;
+            this.listViewProviders.SelectedItems[0].ForeColor = enabled ? Color.Black : Color.Gray;
+        }
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
 
-            using (var form = new ProviderAbout(provider.Value.Clone() as IUploadProvider))
+            using (var form = new ProviderAbout(provider.Value.Provider.Clone() as IUploadProvider))
             {
                 form.ShowDialog();
             }

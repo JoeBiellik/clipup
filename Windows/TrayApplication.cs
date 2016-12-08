@@ -66,7 +66,7 @@ namespace ClipUp.Windows
                 {
                     //this.overlay.SelectedImage?.Save(@"selected.png", ImageFormat.Png);
 
-                    await this.UploadImage(Program.Providers.Where(p => p.Value is IImageUploadProvider).Select(p => p.Value).Cast<IImageUploadProvider>().First(), this.overlay.SelectedImage);
+                    await this.UploadImage(Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider).Select(p => p.Value.Provider).Cast<IImageUploadProvider>().First(), this.overlay.SelectedImage);
                 }
             }
 
@@ -117,14 +117,14 @@ namespace ClipUp.Windows
             {
                 menu.Items.Add(new ToolStripLabel("Clipboard (Text)") { Enabled = false });
 
-                foreach (var provider in Program.Providers.Where(p => p.Value is ITextUploadProvider))
+                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled))
                 {
-                    menu.Items.Add(new ToolStripMenuItem(provider.Value.Name, null, async (s, a) =>
+                    menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
                     {
-                        await this.UploadText((ITextUploadProvider)provider.Value, Clipboard.GetText());
+                        await this.UploadText((ITextUploadProvider)provider.Value.Provider, Clipboard.GetText());
                     })
                     {
-                        Image = provider.Value.Icon?.ToBitmap()
+                        Image = provider.Value.Provider.Icon?.ToBitmap()
                     });
                 }
             }
@@ -132,14 +132,14 @@ namespace ClipUp.Windows
             {
                 menu.Items.Add(new ToolStripLabel("Clipboard (Image)") { Enabled = false });
 
-                foreach (var provider in Program.Providers.Where(p => p.Value is IImageUploadProvider))
+                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled))
                 {
-                    menu.Items.Add(new ToolStripMenuItem(provider.Value.Name, null, async (s, a) =>
+                    menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
                     {
-                        await this.UploadImage((IImageUploadProvider)provider.Value, Clipboard.GetImage());
+                        await this.UploadImage((IImageUploadProvider)provider.Value.Provider, Clipboard.GetImage());
                     })
                     {
-                        Image = provider.Value.Icon?.ToBitmap()
+                        Image = provider.Value.Provider.Icon?.ToBitmap()
                     });
                 }
             }

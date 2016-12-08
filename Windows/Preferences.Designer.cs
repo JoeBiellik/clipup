@@ -51,6 +51,9 @@
             this.tabPageCapture = new System.Windows.Forms.TabPage();
             this.checkBoxCaptureWindowShadow = new System.Windows.Forms.CheckBox();
             this.checkBoxCaptureCursor = new System.Windows.Forms.CheckBox();
+            this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.disableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageProviders.SuspendLayout();
@@ -90,6 +93,7 @@
             this.tabControl.Controls.Add(this.tabPageProviders);
             this.tabControl.Controls.Add(this.tabPageHotkeys);
             this.tabControl.Controls.Add(this.tabPageCapture);
+            this.tabControl.Controls.Add(this.tabPageAbout);
             this.tabControl.Location = new System.Drawing.Point(5, 5);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -206,28 +210,30 @@
             this.contextMenuStripProvider.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.disableToolStripMenuItem});
             this.contextMenuStripProvider.Name = "contextMenuStripProvider";
-            this.contextMenuStripProvider.Size = new System.Drawing.Size(130, 54);
+            this.contextMenuStripProvider.Size = new System.Drawing.Size(153, 104);
             this.contextMenuStripProvider.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripProvider_Opening);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.settingsToolStripMenuItem.Text = "&Settings...";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -273,6 +279,28 @@
             this.checkBoxCaptureCursor.Text = "Capture &mouse cursor in screenshots";
             this.checkBoxCaptureCursor.UseVisualStyleBackColor = true;
             // 
+            // tabPageAbout
+            // 
+            this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAbout.Name = "tabPageAbout";
+            this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAbout.Size = new System.Drawing.Size(442, 164);
+            this.tabPageAbout.TabIndex = 4;
+            this.tabPageAbout.Text = "About";
+            this.tabPageAbout.UseVisualStyleBackColor = true;
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // disableToolStripMenuItem
+            // 
+            this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
+            this.disableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.disableToolStripMenuItem.Text = "&Disable";
+            this.disableToolStripMenuItem.Click += new System.EventHandler(this.disableToolStripMenuItem_Click);
+            // 
             // Preferences
             // 
             this.AcceptButton = this.buttonOk;
@@ -287,8 +315,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Preferences";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Preferences";
             this.Load += new System.EventHandler(this.Preferences_Load);
@@ -327,5 +353,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageAbout;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem disableToolStripMenuItem;
     }
 }
