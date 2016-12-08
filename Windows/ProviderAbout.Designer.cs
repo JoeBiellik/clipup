@@ -77,6 +77,7 @@
             this.linkLink.TabIndex = 2;
             this.linkLink.TabStop = true;
             this.linkLink.Text = "http://website.com";
+            this.linkLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLink_LinkClicked);
             // 
             // labelAuthor
             // 
@@ -96,6 +97,7 @@
             this.linkAuthor.TabIndex = 4;
             this.linkAuthor.TabStop = true;
             this.linkAuthor.Text = "https://github.com/JoeBiellik/clipup";
+            this.linkAuthor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAuthor_LinkClicked);
             // 
             // labelDescription
             // 

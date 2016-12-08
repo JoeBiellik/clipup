@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
@@ -32,6 +33,16 @@ namespace ClipUp.Windows
             this.linkAuthor.Text = this.provider.AuthorWebsite;
 
             this.labelDescription.Text = this.provider.Description;
+        }
+
+        private void linkLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(this.provider.Website);
+        }
+
+        private void linkAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(this.provider.AuthorWebsite);
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

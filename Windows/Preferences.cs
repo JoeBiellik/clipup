@@ -62,6 +62,7 @@ namespace ClipUp.Windows
             e.Cancel = hit.Item == null;
 
             if (e.Cancel) return;
+            if (this.listViewProviders.SelectedItems.Count < 1) return;
 
             var provider = Program.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
 
