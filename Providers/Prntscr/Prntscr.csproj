@@ -32,7 +32,6 @@
     <PluginDestination>..\..\Windows\bin\Release\Providers\Prntscr.dll</PluginDestination>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

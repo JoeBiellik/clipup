@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Newtonsoft.Json;
 
 namespace ClipUp.Sdk.Interfaces
@@ -35,6 +36,13 @@ namespace ClipUp.Sdk.Interfaces
         /// <value>The provider description.</value>
         [JsonIgnore]
         string Description { get; }
+
+        /// <summary>
+        /// Gets the icon of the upload provider.
+        /// </summary>
+        /// <value>The provider icon.</value>
+        [JsonIgnore]
+        Icon Icon { get; }
 
         /// <summary>
         /// Gets the name of the provider author.

@@ -23,6 +23,9 @@ namespace ClipUp.Sdk.Providers
         public abstract string Description { get; }
 
         /// <inheritdoc />
+        public abstract Icon Icon { get; }
+
+        /// <inheritdoc />
         public abstract string AuthorName { get; }
 
         /// <inheritdoc />

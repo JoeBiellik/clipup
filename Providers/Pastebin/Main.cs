@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ClipUp.Sdk;
@@ -17,6 +19,7 @@ namespace ClipUp.Providers.Pastebin
         public override Version Version => new Version(1, 0, 0);
         public override string Website => "http://pastebin.com/";
         public override string Description => "Pastebin.com text upload";
+        public override Icon Icon => new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ClipUp.Providers.Pastebin.Icon.ico"));
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;

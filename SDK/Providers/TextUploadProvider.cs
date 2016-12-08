@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using ClipUp.Sdk.Interfaces;
 
@@ -20,6 +21,9 @@ namespace ClipUp.Sdk.Providers
 
         /// <inheritdoc />
         public abstract string Description { get; }
+
+        /// <inheritdoc />
+        public abstract Icon Icon { get; }
 
         /// <inheritdoc />
         public abstract string AuthorName { get; }

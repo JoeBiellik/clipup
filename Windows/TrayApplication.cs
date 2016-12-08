@@ -122,7 +122,10 @@ namespace ClipUp.Windows
                     menu.Items.Add(new ToolStripMenuItem(provider.Value.Name, null, async (s, a) =>
                     {
                         await this.UploadText((ITextUploadProvider)provider.Value, Clipboard.GetText());
-                    }));
+                    })
+                    {
+                        Image = provider.Value.Icon?.ToBitmap()
+                    });
                 }
             }
             else if (Clipboard.ContainsImage())
@@ -134,7 +137,10 @@ namespace ClipUp.Windows
                     menu.Items.Add(new ToolStripMenuItem(provider.Value.Name, null, async (s, a) =>
                     {
                         await this.UploadImage((IImageUploadProvider)provider.Value, Clipboard.GetImage());
-                    }));
+                    })
+                    {
+                        Image = provider.Value.Icon?.ToBitmap()
+                    });
                 }
             }
         }

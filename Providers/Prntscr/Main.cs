@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Net;
 using System.Text;
@@ -18,6 +19,7 @@ namespace ClipUp.Providers.Prntscr
         public override Version Version => new Version(1, 0, 0);
         public override string Website => "http://prntscr.com/";
         public override string Description => "prntscr.com image upload";
+        public override Icon Icon => null;
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
         public override long MaxSize => -1;
@@ -28,6 +30,7 @@ namespace ClipUp.Providers.Prntscr
         /// User configurable.
         /// </summary>
         /// <seealso cref="UploadResult.Url"/>
+        [DefaultValue(true)]
         public bool DirectLink { get; set; } = true;
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)
