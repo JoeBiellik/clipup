@@ -4,20 +4,20 @@ using System.Drawing;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
 
-namespace ClipUp.Windows.Forms
+namespace ClipUp.Windows.Forms.Provider
 {
-    public partial class ProviderAbout : Form
+    public partial class About : Form
     {
         private readonly IUploadProvider provider;
 
-        public ProviderAbout(IUploadProvider provider)
+        public About(IUploadProvider provider)
         {
             this.provider = provider;
 
             this.InitializeComponent();
         }
 
-        private void ProviderAbout_Load(object sender, EventArgs e)
+        private void About_Load(object sender, EventArgs e)
         {
             this.Text = $"About {this.provider.Name}";
 

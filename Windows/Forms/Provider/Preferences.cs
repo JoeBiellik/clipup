@@ -2,13 +2,13 @@
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
 
-namespace ClipUp.Windows.Forms
+namespace ClipUp.Windows.Forms.Provider
 {
-    public partial class ProviderPreferences : Form
+    public partial class Preferences : Form
     {
         public IUploadProvider Provider { get; }
 
-        public ProviderPreferences(IUploadProvider provider)
+        public Preferences(IUploadProvider provider)
         {
             if (!(provider is IConfigurableProvider))
             {
@@ -20,7 +20,7 @@ namespace ClipUp.Windows.Forms
             this.InitializeComponent();
         }
 
-        private void ProviderPreferences_Load(object sender, EventArgs e)
+        private void Preferences_Load(object sender, EventArgs e)
         {
             this.Text = this.Provider.Name + " Provider Preferences";
 

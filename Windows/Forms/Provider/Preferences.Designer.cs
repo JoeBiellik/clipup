@@ -1,6 +1,6 @@
-﻿namespace ClipUp.Windows.Forms
+﻿namespace ClipUp.Windows.Forms.Provider
 {
-    partial class ProviderPreferences
+    partial class Preferences
     {
         /// <summary>
         /// Required designer variable.
@@ -67,7 +67,7 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             //
-            // ProviderPreferences
+            // Preferences
             //
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -80,10 +80,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ProviderPreferences";
+            this.Name = "Preferences";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Provider Preferences";
-            this.Load += new System.EventHandler(this.ProviderPreferences_Load);
+            this.Load += new System.EventHandler(this.Preferences_Load);
             this.ResumeLayout(false);
 
         }

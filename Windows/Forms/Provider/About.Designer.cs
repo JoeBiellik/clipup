@@ -1,6 +1,6 @@
-﻿namespace ClipUp.Windows.Forms
+﻿namespace ClipUp.Windows.Forms.Provider
 {
-    partial class ProviderAbout
+    partial class About
     {
         /// <summary>
         /// Required designer variable.
@@ -113,7 +113,7 @@
             this.labelDescription.TabIndex = 5;
             this.labelDescription.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
             //
-            // ProviderAbout
+            // About
             //
             this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,12 +131,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ProviderAbout";
+            this.Name = "About";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About Provider";
-            this.Load += new System.EventHandler(this.ProviderAbout_Load);
+            this.Load += new System.EventHandler(this.About_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

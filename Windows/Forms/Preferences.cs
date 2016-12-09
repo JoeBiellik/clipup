@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
+using ClipUp.Windows.Forms.Provider;
 
 namespace ClipUp.Windows.Forms
 {
@@ -86,7 +87,7 @@ namespace ClipUp.Windows.Forms
         {
             var provider = this.GetSelectedProvider();
 
-            using (var form = new ProviderPreferences(provider.Value.Provider.Clone() as IUploadProvider))
+            using (var form = new Provider.Preferences(provider.Value.Provider.Clone() as IUploadProvider))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -107,7 +108,7 @@ namespace ClipUp.Windows.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new ProviderAbout(this.GetSelectedProvider().Value.Provider.Clone() as IUploadProvider))
+            using (var form = new About(this.GetSelectedProvider().Value.Provider.Clone() as IUploadProvider))
             {
                 form.ShowDialog();
             }
