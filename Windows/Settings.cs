@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Input;
 using ClipUp.Sdk.Interfaces;
+using ClipUp.Sdk.Providers;
 using JoeBiellik.Utils;
 using JoeBiellik.Utils.Hotkeys;
 using Newtonsoft.Json;
@@ -23,7 +25,7 @@ namespace ClipUp.Windows
         public string DefaultTextProvider { get; set; } = "PasteFyi";
         public string DefaultImageProvider { get; set; } = "Imgur";
         public List<Hotkey> Hotkeys { get; set; } = new List<Hotkey>();
-        public Dictionary<string, UploadProviderSettings> Providers { get; set; } = new Dictionary<string, UploadProviderSettings>();
+        public ProviderDictionary Providers { get; set; } = new ProviderDictionary();
 
         public override Settings Initialize()
         {
@@ -37,10 +39,31 @@ namespace ClipUp.Windows
         }
     }
 
+    public class ProviderDictionary : Dictionary<string, UploadProviderSettings>
+    {
+        public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Enabled => this.Where(p => p.Value.Enabled);
+
+        public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Text => this.Where(p => p.Value.Type == UploadProviderTypes.Text);
+
+        public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Image => this.Where(p => p.Value.Type == UploadProviderTypes.Image);
+
+        public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Configurable => this.Where(p => p.Value.Configurable);
+
+        public KeyValuePair<string, UploadProviderSettings> DefaultTextProvider => this.FirstOrDefault(p => p.Key == Settings.Instance.DefaultTextProvider);
+
+        public KeyValuePair<string, UploadProviderSettings> DefaultImageProvider => this.FirstOrDefault(p => p.Key == Settings.Instance.DefaultImageProvider);
+    }
+
     public class UploadProviderSettings
     {
         [DefaultValue(true)]
         public bool Enabled { get; set; } = true;
+
+        [JsonIgnore]
+        public UploadProviderTypes Type => this.Provider is ITextUploadProvider ? UploadProviderTypes.Text : UploadProviderTypes.Image;
+
+        [JsonIgnore]
+        public bool Configurable => this.Provider is IConfigurableProvider;
 
         [JsonProperty("Settings", Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(ProviderTypeConverter))]
@@ -54,15 +77,9 @@ namespace ClipUp.Windows
 
     public class ProviderTypeConverter : JsonConverter
     {
-        public override bool CanConvert(Type type)
-        {
-            return true;
-        }
+        public override bool CanConvert(Type type) => true;
 
-        public override object ReadJson(JsonReader reader, Type type, object existingValue, JsonSerializer serializer)
-        {
-            return null;
-        }
+        public override object ReadJson(JsonReader reader, Type type, object existingValue, JsonSerializer serializer) => null;
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

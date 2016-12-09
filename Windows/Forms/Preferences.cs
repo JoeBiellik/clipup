@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
+using ClipUp.Sdk.Providers;
 using ClipUp.Windows.Forms.Provider;
 
 namespace ClipUp.Windows.Forms
@@ -33,7 +34,7 @@ namespace ClipUp.Windows.Forms
             // Providers
             foreach (var provider in Settings.Instance.Providers.OrderBy(p => p.Key))
             {
-                this.listViewProviders.Items.Add(new ListViewItem(new[] { provider.Value.Provider.Name, provider.Value.Provider.Version.ToString(), this.GetProviderType(provider.Value.Provider), provider.Value.Provider.Description })
+                this.listViewProviders.Items.Add(new ListViewItem(new[] { provider.Value.Provider.Name, provider.Value.Provider.Version.ToString(), provider.Value.Type.ToString(), provider.Value.Provider.Description })
                 {
                     Tag = provider.Key,
                     ForeColor = provider.Value.Enabled ? Color.Black : Color.Gray
@@ -44,16 +45,16 @@ namespace ClipUp.Windows.Forms
             this.listViewProviders.Columns[0].Width += 10;
             this.listViewProviders.Columns[3].Width = this.listViewProviders.ClientSize.Width - this.listViewProviders.Columns[0].Width - 60 - 60;
 
-            this.comboBoxDefaultTextProvider.Items.AddRange(Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
-            this.comboBoxDefaultTextProvider.SelectedItem = Settings.Instance.Providers[Settings.Instance.DefaultTextProvider].Provider.Name;
+            this.comboBoxDefaultTextProvider.Items.AddRange(Settings.Instance.Providers.Enabled.Where(p => p.Value.Type == UploadProviderTypes.Text).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
+            this.comboBoxDefaultTextProvider.SelectedItem = Settings.Instance.Providers.DefaultTextProvider.Value.Provider.Name;
 
-            this.comboBoxDefaultImageProvider.Items.AddRange(Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
-            this.comboBoxDefaultImageProvider.SelectedItem = Settings.Instance.Providers[Settings.Instance.DefaultImageProvider].Provider.Name;
+            this.comboBoxDefaultImageProvider.Items.AddRange(Settings.Instance.Providers.Enabled.Where(p => p.Value.Type == UploadProviderTypes.Image).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
+            this.comboBoxDefaultImageProvider.SelectedItem = Settings.Instance.Providers.DefaultImageProvider.Value.Provider.Name;
         }
 
         private void listViewProviders_DoubleClick(object sender, EventArgs e)
         {
-            if (this.GetSelectedProvider().Value.Provider is IConfigurableProvider)
+            if (this.GetSelectedProvider().Value.Configurable)
             {
                 this.settingsToolStripMenuItem_Click(null, null);
             }
@@ -75,7 +76,7 @@ namespace ClipUp.Windows.Forms
 
             var provider = this.GetSelectedProvider();
 
-            var configurable = provider.Value.Provider is IConfigurableProvider;
+            var configurable = provider.Value.Configurable;
 
             this.contextMenuStripProvider.Items[0].Visible = configurable;
             this.contextMenuStripProvider.Items[1].Visible = configurable;
@@ -98,20 +99,17 @@ namespace ClipUp.Windows.Forms
             }
         }
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var form = new About(this.GetSelectedProvider().Value)) form.ShowDialog();
+        }
+
         private void disableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var enabled = this.disableToolStripMenuItem.Text == "Enable";
 
             Settings.Instance.Providers[this.GetSelectedProvider().Key].Enabled = enabled;
             this.listViewProviders.SelectedItems[0].ForeColor = enabled ? Color.Black : Color.Gray;
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var form = new About(this.GetSelectedProvider().Value.Provider.Clone() as IUploadProvider))
-            {
-                form.ShowDialog();
-            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -136,13 +134,6 @@ namespace ClipUp.Windows.Forms
         private KeyValuePair<string, UploadProviderSettings> GetSelectedProvider()
         {
            return Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
-        }
-
-        private string GetProviderType(IUploadProvider provider)
-        {
-            if (provider is IImageUploadProvider) return "Image";
-            if (provider is ITextUploadProvider) return "Text";
-            return "Unknown";
         }
     }
 }
