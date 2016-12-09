@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using ClipUp.Sdk;
 using ClipUp.Sdk.Interfaces;
+using ClipUp.Sdk.Providers;
 using JoeBiellik.Utils;
 using JoeBiellik.Utils.Hotkeys;
 using Newtonsoft.Json;
@@ -76,27 +78,48 @@ namespace ClipUp.Windows
             {
                 var key = Path.GetFileNameWithoutExtension(provider) ?? provider;
 
-                try
-                {
-                    var json = providersJson["Providers"]?[key]?["Settings"]?.ToString() ?? "{}";
-                    var type = Assembly.LoadFrom(provider).GetTypes().First(t => t.GetInterface(typeof(IUploadProvider).Name) != null && !t.IsAbstract);
-
-                    if (Settings.Instance.Providers.ContainsKey(key))
-                    {
-                        Settings.Instance.Providers[key].Provider = JsonConvert.DeserializeObject(json, type) as IUploadProvider;
-                    }
-                    else
-                    {
-                        Settings.Instance.Providers.Add(key, new UploadProviderSettings { Provider = JsonConvert.DeserializeObject(json, type) as IUploadProvider });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
+                LoadProvider(provider, key, providersJson["Providers"]?[key]?["Settings"]?.ToString() ?? "{}");
             }
 
             Settings.Save();
+        }
+
+        private static void LoadProvider(string path, string key, string json)
+        {
+            try
+            {
+                var asm = Assembly.LoadFrom(path);
+                var sdkVersion = asm.GetCustomAttribute<SdkVersionAttribute>();
+
+                if (sdkVersion == null) throw new ProviderSdkVersionException(path);
+                if (sdkVersion.Target != UploadProvider.SDK_VERSION) throw new ProviderSdkVersionException(path, sdkVersion.Target);
+
+                var type = asm.GetTypes().First(t => t.GetInterface(typeof(IUploadProvider).Name) != null && !t.IsAbstract);
+
+                var provider = JsonConvert.DeserializeObject(json, type) as IUploadProvider;
+
+                if (Settings.Instance.Providers.ContainsKey(key))
+                {
+                    Settings.Instance.Providers[key].Provider = provider;
+                }
+                else
+                {
+                    Settings.Instance.Providers.Add(key, new UploadProviderSettings
+                    {
+                        Provider = provider
+                    });
+                }
+            }
+            catch (ProviderSdkVersionException ex)
+            {
+                // TODO: Exception handling
+
+                Logger.Error(ex);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
         }
     }
 }

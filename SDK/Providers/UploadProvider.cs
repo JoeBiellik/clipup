@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading.Tasks;
-using ClipUp.Sdk.Interfaces;
 
 namespace ClipUp.Sdk.Providers
 {
@@ -11,10 +9,10 @@ namespace ClipUp.Sdk.Providers
     public abstract class UploadProvider
     {
         /// <summary>
-        /// SDK version provider was built against.
+        /// SDK version number the provider was built against.
         /// </summary>
         /// <remarks>
-        /// This version is incremented when there is a major change to the SDK.
+        /// This version number is incremented when there is a major change to the SDK.
         /// </remarks>
         public const uint SDK_VERSION = 0;
 

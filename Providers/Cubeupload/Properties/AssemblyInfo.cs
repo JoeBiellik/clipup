@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using ClipUp.Sdk;
+using ClipUp.Sdk.Providers;
 
+[assembly: SdkVersion(UploadProvider.SDK_VERSION)]
 [assembly: AssemblyTitle("ClipUp Cubeupload Plugin")]
 [assembly: AssemblyDescription("ClipUp Cubeupload Plugin")]
 [assembly: AssemblyConfiguration("")]

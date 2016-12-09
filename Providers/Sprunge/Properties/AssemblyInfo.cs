@@ -1,6 +1,9 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using ClipUp.Sdk;
+using ClipUp.Sdk.Providers;
 
+[assembly: SdkVersion(UploadProvider.SDK_VERSION)]
 [assembly: AssemblyTitle("ClipUp Sprunge Plugin")]
 [assembly: AssemblyDescription("ClipUp Sprunge Plugin")]
 [assembly: AssemblyConfiguration("")]
