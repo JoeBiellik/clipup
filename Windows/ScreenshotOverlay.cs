@@ -23,8 +23,11 @@ namespace ClipUp.Windows
 
         private void ScreenshotOverlay_Load(object sender, EventArgs e)
         {
-            this.Bounds = Screen.PrimaryScreen.Bounds;
-            this.selectionPictureBox.Image = ScreenCapture.CapturePrimaryScreen();
+            this.Bounds = Screen.FromPoint(MousePosition).Bounds;
+            //this.Bounds = Screen.PrimaryScreen.Bounds;
+
+            this.selectionPictureBox.Image = ScreenCapture.CaptureBounds(this.Bounds);
+            //this.selectionPictureBox.Image = ScreenCapture.CapturePrimaryScreen();
         }
 
         protected override CreateParams CreateParams

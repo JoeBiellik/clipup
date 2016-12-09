@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ClipUp.Sdk.Interfaces;
 
 namespace ClipUp.Sdk.Providers

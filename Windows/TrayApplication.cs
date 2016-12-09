@@ -117,7 +117,7 @@ namespace ClipUp.Windows
             {
                 menu.Items.Add(new ToolStripLabel("Clipboard (Text)") { Enabled = false });
 
-                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled))
+                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled).OrderBy(p => p.Key))
                 {
                     menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
                     {
@@ -132,7 +132,7 @@ namespace ClipUp.Windows
             {
                 menu.Items.Add(new ToolStripLabel("Clipboard (Image)") { Enabled = false });
 
-                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled))
+                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled).OrderBy(p => p.Key))
                 {
                     menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
                     {
