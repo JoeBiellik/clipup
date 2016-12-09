@@ -20,6 +20,8 @@ namespace ClipUp.Windows
         public bool CaptureWindowShadow { get; set; } = false;
         public ImageFormat UploadFormat { get; set; } = ImageFormat.Png;
         public int UploadQuality { get; set; } = 90;
+        public string DefaultTextProvider { get; set; } = "PasteFyi";
+        public string DefaultImageProvider { get; set; } = "Imgur";
         public List<Hotkey> Hotkeys { get; set; } = new List<Hotkey>();
         public Dictionary<string, UploadProviderSettings> Providers { get; set; } = new Dictionary<string, UploadProviderSettings>();
 

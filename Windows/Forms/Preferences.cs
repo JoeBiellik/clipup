@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
 
-namespace ClipUp.Windows
+namespace ClipUp.Windows.Forms
 {
     public partial class Preferences : Form
     {
@@ -29,7 +30,7 @@ namespace ClipUp.Windows
             this.checkBoxCaptureWindowShadow.Checked = Settings.Instance.CaptureWindowShadow;
 
             // Providers
-            foreach (var provider in Settings.Instance.Providers)
+            foreach (var provider in Settings.Instance.Providers.OrderBy(p => p.Key))
             {
                 this.listViewProviders.Items.Add(new ListViewItem(new[] { provider.Value.Provider.Name, provider.Value.Provider.Version.ToString(), this.GetProviderType(provider.Value.Provider), provider.Value.Provider.Description })
                 {
@@ -41,13 +42,17 @@ namespace ClipUp.Windows
             this.listViewProviders.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             this.listViewProviders.Columns[0].Width += 10;
             this.listViewProviders.Columns[3].Width = this.listViewProviders.ClientSize.Width - this.listViewProviders.Columns[0].Width - 60 - 60;
+
+            this.comboBoxDefaultTextProvider.Items.AddRange(Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
+            this.comboBoxDefaultTextProvider.SelectedItem = Settings.Instance.Providers[Settings.Instance.DefaultTextProvider].Provider.Name;
+
+            this.comboBoxDefaultImageProvider.Items.AddRange(Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
+            this.comboBoxDefaultImageProvider.SelectedItem = Settings.Instance.Providers[Settings.Instance.DefaultImageProvider].Provider.Name;
         }
 
         private void listViewProviders_DoubleClick(object sender, EventArgs e)
         {
-            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
-
-            if (provider.Value.Provider is IConfigurableProvider)
+            if (this.GetSelectedProvider().Value.Provider is IConfigurableProvider)
             {
                 this.settingsToolStripMenuItem_Click(null, null);
             }
@@ -67,7 +72,7 @@ namespace ClipUp.Windows
             if (e.Cancel) return;
             if (this.listViewProviders.SelectedItems.Count < 1) return;
 
-            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            var provider = this.GetSelectedProvider();
 
             var configurable = provider.Value.Provider is IConfigurableProvider;
 
@@ -79,7 +84,7 @@ namespace ClipUp.Windows
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            var provider = this.GetSelectedProvider();
 
             using (var form = new ProviderPreferences(provider.Value.Provider.Clone() as IUploadProvider))
             {
@@ -94,19 +99,15 @@ namespace ClipUp.Windows
 
         private void disableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
-
             var enabled = this.disableToolStripMenuItem.Text == "Enable";
 
-            Settings.Instance.Providers[provider.Key].Enabled = enabled;
+            Settings.Instance.Providers[this.GetSelectedProvider().Key].Enabled = enabled;
             this.listViewProviders.SelectedItems[0].ForeColor = enabled ? Color.Black : Color.Gray;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var provider = Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
-
-            using (var form = new ProviderAbout(provider.Value.Provider.Clone() as IUploadProvider))
+            using (var form = new ProviderAbout(this.GetSelectedProvider().Value.Provider.Clone() as IUploadProvider))
             {
                 form.ShowDialog();
             }
@@ -129,6 +130,11 @@ namespace ClipUp.Windows
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private KeyValuePair<string, UploadProviderSettings> GetSelectedProvider()
+        {
+           return Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
         }
 
         private string GetProviderType(IUploadProvider provider)

@@ -1,4 +1,6 @@
-﻿namespace ClipUp.Windows
+﻿using ClipUp.Windows.Controls;
+
+namespace ClipUp.Windows.Forms
 {
     partial class ScreenshotOverlay
     {
@@ -13,9 +15,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -28,11 +30,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.selectionPictureBox = new ClipUp.Windows.SelectionPictureBox();
+            this.selectionPictureBox = new SelectionPictureBox();
             this.SuspendLayout();
-            // 
+            //
             // selectionPictureBox
-            // 
+            //
             this.selectionPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectionPictureBox.DragHandleSize = 8;
             this.selectionPictureBox.Image = null;
@@ -44,9 +46,9 @@
             this.selectionPictureBox.TabIndex = 0;
             this.selectionPictureBox.Text = "selectionPictureBox1";
             this.selectionPictureBox.SelectedAreaChanged += new System.EventHandler(this.selectionPictureBox_SelectedAreaChanged);
-            // 
+            //
             // ScreenshotOverlay
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);

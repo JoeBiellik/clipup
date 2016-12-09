@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using ClipUp.Sdk.Interfaces;
 
-namespace ClipUp.Windows
+namespace ClipUp.Windows.Forms
 {
     public partial class ProviderPreferences : Form
     {

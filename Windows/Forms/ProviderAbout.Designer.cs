@@ -1,4 +1,4 @@
-﻿namespace ClipUp.Windows
+﻿namespace ClipUp.Windows.Forms
 {
     partial class ProviderAbout
     {
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (this.components != null))
             {
-                components.Dispose();
+                this.components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -36,9 +36,9 @@
             this.linkAuthor = new System.Windows.Forms.LinkLabel();
             this.labelDescription = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // buttonClose
-            // 
+            //
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.Location = new System.Drawing.Point(223, 126);
@@ -48,9 +48,9 @@
             this.buttonClose.Text = "&Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(12, 9);
@@ -58,18 +58,18 @@
             this.labelTitle.Size = new System.Drawing.Size(148, 16);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Example version 1.0.0.0";
-            // 
+            //
             // labelAbout
-            // 
+            //
             this.labelAbout.AutoSize = true;
             this.labelAbout.Location = new System.Drawing.Point(12, 34);
             this.labelAbout.Name = "labelAbout";
             this.labelAbout.Size = new System.Drawing.Size(123, 13);
             this.labelAbout.TabIndex = 1;
             this.labelAbout.Text = "Provides text uploads to ";
-            // 
+            //
             // linkLink
-            // 
+            //
             this.linkLink.AutoSize = true;
             this.linkLink.Location = new System.Drawing.Point(129, 34);
             this.linkLink.Name = "linkLink";
@@ -78,18 +78,18 @@
             this.linkLink.TabStop = true;
             this.linkLink.Text = "http://website.com";
             this.linkLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLink_LinkClicked);
-            // 
+            //
             // labelAuthor
-            // 
+            //
             this.labelAuthor.AutoSize = true;
             this.labelAuthor.Location = new System.Drawing.Point(12, 58);
             this.labelAuthor.Name = "labelAuthor";
             this.labelAuthor.Size = new System.Drawing.Size(91, 13);
             this.labelAuthor.TabIndex = 3;
             this.labelAuthor.Text = "Author: Joe Biellik";
-            // 
+            //
             // linkAuthor
-            // 
+            //
             this.linkAuthor.AutoSize = true;
             this.linkAuthor.Location = new System.Drawing.Point(12, 82);
             this.linkAuthor.Name = "linkAuthor";
@@ -98,11 +98,11 @@
             this.linkAuthor.TabStop = true;
             this.linkAuthor.Text = "https://github.com/JoeBiellik/clipup";
             this.linkAuthor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAuthor_LinkClicked);
-            // 
+            //
             // labelDescription
-            // 
-            this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDescription.AutoSize = true;
             this.labelDescription.Location = new System.Drawing.Point(12, 106);
@@ -112,9 +112,9 @@
             this.labelDescription.Size = new System.Drawing.Size(262, 23);
             this.labelDescription.TabIndex = 5;
             this.labelDescription.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-            // 
+            //
             // ProviderAbout
-            // 
+            //
             this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

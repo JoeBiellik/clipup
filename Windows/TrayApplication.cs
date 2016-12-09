@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClipUp.Sdk;
 using ClipUp.Sdk.Interfaces;
+using ClipUp.Windows.Forms;
 using JoeBiellik.Utils.Hotkeys;
 
 namespace ClipUp.Windows

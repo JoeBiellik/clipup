@@ -81,6 +81,17 @@ namespace ClipUp.Windows
                 LoadProvider(provider, key, providersJson["Providers"]?[key]?["Settings"]?.ToString() ?? "{}");
             }
 
+            // TODO: Check enabled
+            if (Settings.Instance.Providers.Count(p => p.Key == Settings.Instance.DefaultTextProvider && p.Value.Provider is ITextUploadProvider) < 1)
+            {
+                Settings.Instance.DefaultTextProvider = Settings.Instance.Providers.First(p => p.Value.Provider is ITextUploadProvider).Key;
+            }
+
+            if (Settings.Instance.Providers.Count(p => p.Key == Settings.Instance.DefaultImageProvider && p.Value.Provider is IImageUploadProvider) < 1)
+            {
+                Settings.Instance.DefaultImageProvider = Settings.Instance.Providers.First(p => p.Value.Provider is IImageUploadProvider).Key;
+            }
+
             Settings.Save();
         }
 

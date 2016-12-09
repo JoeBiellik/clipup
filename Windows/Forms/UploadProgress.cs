@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ClipUp.Windows
+namespace ClipUp.Windows.Forms
 {
     public partial class UploadProgress : Form
     {
