@@ -32,8 +32,8 @@ namespace ClipUp.Providers.Tinyimg
             multipartUpload.Files.Add(new MultipartFile
             {
                 FieldName = "qqfile",
-                ContentType = "image/png",
-                FileName = "upload.png",
+                ContentType = options.MimeType,
+                FileName = "upload." + options.Extention,
                 Data = image.ToArray(options.Format)
             });
 
