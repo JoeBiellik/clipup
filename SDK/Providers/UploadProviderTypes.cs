@@ -6,12 +6,12 @@
     public enum UploadProviderTypes
     {
         /// <summary>
-        /// Text upload provider
+        /// Text upload provider.
         /// </summary>
         Text,
 
         /// <summary>
-        /// Image upload provider
+        /// Image upload provider.
         /// </summary>
         Image
     }

@@ -45,16 +45,12 @@ namespace ClipUp.Windows.Forms
             this.listViewProviders.Columns[0].Width += 10;
             this.listViewProviders.Columns[3].Width = this.listViewProviders.ClientSize.Width - this.listViewProviders.Columns[0].Width - 60 - 60;
 
-            this.comboBoxDefaultTextProvider.Items.AddRange(Settings.Instance.Providers.Enabled.Where(p => p.Value.Type == UploadProviderTypes.Text).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
-            this.comboBoxDefaultTextProvider.SelectedItem = Settings.Instance.Providers.DefaultTextProvider.Value.Provider.Name;
-
-            this.comboBoxDefaultImageProvider.Items.AddRange(Settings.Instance.Providers.Enabled.Where(p => p.Value.Type == UploadProviderTypes.Image).OrderBy(p => p.Key).Select(p => p.Value.Provider.Name).Cast<object>().ToArray());
-            this.comboBoxDefaultImageProvider.SelectedItem = Settings.Instance.Providers.DefaultImageProvider.Value.Provider.Name;
+            this.BuildProviderMenuDataSource();
         }
 
         private void listViewProviders_DoubleClick(object sender, EventArgs e)
         {
-            if (this.GetSelectedProvider().Value.Configurable)
+            if (this.GetSelectedProvider().Value.IsConfigurable)
             {
                 this.settingsToolStripMenuItem_Click(null, null);
             }
@@ -76,7 +72,7 @@ namespace ClipUp.Windows.Forms
 
             var provider = this.GetSelectedProvider();
 
-            var configurable = provider.Value.Configurable;
+            var configurable = provider.Value.IsConfigurable;
 
             this.contextMenuStripProvider.Items[0].Visible = configurable;
             this.contextMenuStripProvider.Items[1].Visible = configurable;
@@ -106,10 +102,29 @@ namespace ClipUp.Windows.Forms
 
         private void disableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var enabled = this.disableToolStripMenuItem.Text == "Enable";
+            var enable = this.disableToolStripMenuItem.Text == "&Enable";
 
-            Settings.Instance.Providers[this.GetSelectedProvider().Key].Enabled = enabled;
-            this.listViewProviders.SelectedItems[0].ForeColor = enabled ? Color.Black : Color.Gray;
+            if (!enable && this.GetSelectedProvider().Value.IsDefault)
+            {
+                MessageBox.Show($"You cannot disable a default provider!{Environment.NewLine}Change the default to another provider and try again.", Program.Name, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
+            Settings.Instance.Providers[this.GetSelectedProvider().Key].Enabled = enable;
+            this.listViewProviders.SelectedItems[0].ForeColor = enable ? Color.Black : Color.Gray;
+
+            this.BuildProviderMenuDataSource();
+        }
+
+        private void comboBoxDefaultTextProvider_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.Instance.DefaultTextProvider = ((dynamic)this.comboBoxDefaultTextProvider.SelectedItem).Key;
+        }
+
+        private void comboBoxDefaultImageProvider_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.Instance.DefaultImageProvider = ((dynamic)this.comboBoxDefaultImageProvider.SelectedItem).Key;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -133,7 +148,27 @@ namespace ClipUp.Windows.Forms
 
         private KeyValuePair<string, UploadProviderSettings> GetSelectedProvider()
         {
-           return Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+            return Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
+        }
+        private void BuildProviderMenuDataSource()
+        {
+            this.comboBoxDefaultTextProvider.SelectedIndexChanged -= this.comboBoxDefaultTextProvider_SelectedIndexChanged;
+            this.comboBoxDefaultTextProvider.DataSource = Settings.Instance.Providers.Enabled.Where(p => p.Value.Type == UploadProviderTypes.Text).OrderBy(p => p.Key).Select(p => new
+            {
+                p.Key,
+                p.Value.Provider.Name
+            }).ToList();
+            this.comboBoxDefaultTextProvider.SelectedValue = Settings.Instance.Providers.DefaultTextProvider.Key;
+            this.comboBoxDefaultTextProvider.SelectedIndexChanged += this.comboBoxDefaultTextProvider_SelectedIndexChanged;
+
+            this.comboBoxDefaultImageProvider.SelectedIndexChanged -= this.comboBoxDefaultImageProvider_SelectedIndexChanged;
+            this.comboBoxDefaultImageProvider.DataSource = Settings.Instance.Providers.Enabled.Where(p => p.Value.Type == UploadProviderTypes.Image).OrderBy(p => p.Key).Select(p => new
+            {
+                p.Key,
+                p.Value.Provider.Name
+            }).ToList();
+            this.comboBoxDefaultImageProvider.SelectedValue = Settings.Instance.Providers.DefaultImageProvider.Key;
+            this.comboBoxDefaultImageProvider.SelectedIndexChanged += this.comboBoxDefaultImageProvider_SelectedIndexChanged;
         }
     }
 }

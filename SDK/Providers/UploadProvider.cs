@@ -45,5 +45,11 @@ namespace ClipUp.Sdk.Providers
         {
             return this.MemberwiseClone();
         }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

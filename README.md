@@ -14,7 +14,7 @@ Supports multiple upload hosts and has a plugin system to support 3rd party uplo
 Download the [latest release](https://github.com/JoeBiellik/clipup/releases/latest). The application is portable and does not require installation. Requires .NET Framework 4.5.
 
 ## Providers
-The following offical providers are in this repository and ship with the application:
+The following official providers are in this repository and ship with the application:
 
 Name | Type | Status
 ---- | ---- | ------

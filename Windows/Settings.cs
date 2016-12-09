@@ -47,7 +47,7 @@ namespace ClipUp.Windows
 
         public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Image => this.Where(p => p.Value.Type == UploadProviderTypes.Image);
 
-        public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Configurable => this.Where(p => p.Value.Configurable);
+        public IEnumerable<KeyValuePair<string, UploadProviderSettings>> Configurable => this.Where(p => p.Value.IsConfigurable);
 
         public KeyValuePair<string, UploadProviderSettings> DefaultTextProvider => this.FirstOrDefault(p => p.Key == Settings.Instance.DefaultTextProvider);
 
@@ -63,7 +63,10 @@ namespace ClipUp.Windows
         public UploadProviderTypes Type => this.Provider is ITextUploadProvider ? UploadProviderTypes.Text : UploadProviderTypes.Image;
 
         [JsonIgnore]
-        public bool Configurable => this.Provider is IConfigurableProvider;
+        public bool IsConfigurable => this.Provider is IConfigurableProvider;
+
+        [JsonIgnore]
+        public bool IsDefault => this == Settings.Instance.Providers.DefaultTextProvider.Value || this == Settings.Instance.Providers.DefaultImageProvider.Value;
 
         [JsonProperty("Settings", Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(ProviderTypeConverter))]

@@ -38,6 +38,10 @@
             this.checkBoxCopyLink = new System.Windows.Forms.CheckBox();
             this.checkBoxShowNotification = new System.Windows.Forms.CheckBox();
             this.tabPageProviders = new System.Windows.Forms.TabPage();
+            this.labelDefaultImageProvider = new System.Windows.Forms.Label();
+            this.comboBoxDefaultImageProvider = new System.Windows.Forms.ComboBox();
+            this.labelDefaultTextProvider = new System.Windows.Forms.Label();
+            this.comboBoxDefaultTextProvider = new System.Windows.Forms.ComboBox();
             this.listViewProviders = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -54,19 +58,15 @@
             this.checkBoxCaptureWindowShadow = new System.Windows.Forms.CheckBox();
             this.checkBoxCaptureCursor = new System.Windows.Forms.CheckBox();
             this.tabPageAbout = new System.Windows.Forms.TabPage();
-            this.comboBoxDefaultTextProvider = new System.Windows.Forms.ComboBox();
-            this.labelDefaultTextProvider = new System.Windows.Forms.Label();
-            this.labelDefaultImageProvider = new System.Windows.Forms.Label();
-            this.comboBoxDefaultImageProvider = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageProviders.SuspendLayout();
             this.contextMenuStripProvider.SuspendLayout();
             this.tabPageCapture.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // buttonOk
-            //
+            // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.Location = new System.Drawing.Point(291, 243);
             this.buttonOk.Name = "buttonOk";
@@ -75,9 +75,9 @@
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            //
+            // 
             // buttonCancel
-            //
+            // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(372, 243);
@@ -87,11 +87,11 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            //
+            // 
             // tabControl
-            //
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPageGeneral);
             this.tabControl.Controls.Add(this.tabPageProviders);
@@ -103,9 +103,9 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(450, 232);
             this.tabControl.TabIndex = 0;
-            //
+            // 
             // tabPageGeneral
-            //
+            // 
             this.tabPageGeneral.Controls.Add(this.checkBoxShowProgress);
             this.tabPageGeneral.Controls.Add(this.checkBoxOpenLink);
             this.tabPageGeneral.Controls.Add(this.checkBoxCopyLink);
@@ -113,13 +113,13 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(442, 164);
+            this.tabPageGeneral.Size = new System.Drawing.Size(442, 206);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBoxShowProgress
-            //
+            // 
             this.checkBoxShowProgress.AutoSize = true;
             this.checkBoxShowProgress.Location = new System.Drawing.Point(12, 33);
             this.checkBoxShowProgress.Name = "checkBoxShowProgress";
@@ -127,9 +127,9 @@
             this.checkBoxShowProgress.TabIndex = 1;
             this.checkBoxShowProgress.Text = "Show image &upload progress window";
             this.checkBoxShowProgress.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBoxOpenLink
-            //
+            // 
             this.checkBoxOpenLink.AutoSize = true;
             this.checkBoxOpenLink.Location = new System.Drawing.Point(12, 79);
             this.checkBoxOpenLink.Name = "checkBoxOpenLink";
@@ -137,9 +137,9 @@
             this.checkBoxOpenLink.TabIndex = 3;
             this.checkBoxOpenLink.Text = "&Open link in browser after upload";
             this.checkBoxOpenLink.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBoxCopyLink
-            //
+            // 
             this.checkBoxCopyLink.AutoSize = true;
             this.checkBoxCopyLink.Location = new System.Drawing.Point(12, 56);
             this.checkBoxCopyLink.Name = "checkBoxCopyLink";
@@ -147,9 +147,9 @@
             this.checkBoxCopyLink.TabIndex = 2;
             this.checkBoxCopyLink.Text = "&Copy link to clipboard after upload";
             this.checkBoxCopyLink.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBoxShowNotification
-            //
+            // 
             this.checkBoxShowNotification.AutoSize = true;
             this.checkBoxShowNotification.Location = new System.Drawing.Point(12, 10);
             this.checkBoxShowNotification.Name = "checkBoxShowNotification";
@@ -157,9 +157,9 @@
             this.checkBoxShowNotification.TabIndex = 0;
             this.checkBoxShowNotification.Text = "Show &notification on upload";
             this.checkBoxShowNotification.UseVisualStyleBackColor = true;
-            //
+            // 
             // tabPageProviders
-            //
+            // 
             this.tabPageProviders.Controls.Add(this.labelDefaultImageProvider);
             this.tabPageProviders.Controls.Add(this.comboBoxDefaultImageProvider);
             this.tabPageProviders.Controls.Add(this.labelDefaultTextProvider);
@@ -172,11 +172,51 @@
             this.tabPageProviders.TabIndex = 2;
             this.tabPageProviders.Text = "Providers";
             this.tabPageProviders.UseVisualStyleBackColor = true;
-            //
+            // 
+            // labelDefaultImageProvider
+            // 
+            this.labelDefaultImageProvider.AutoSize = true;
+            this.labelDefaultImageProvider.Location = new System.Drawing.Point(224, 181);
+            this.labelDefaultImageProvider.Name = "labelDefaultImageProvider";
+            this.labelDefaultImageProvider.Size = new System.Drawing.Size(115, 13);
+            this.labelDefaultImageProvider.TabIndex = 4;
+            this.labelDefaultImageProvider.Text = "Default Image Provider";
+            // 
+            // comboBoxDefaultImageProvider
+            // 
+            this.comboBoxDefaultImageProvider.DisplayMember = "Name";
+            this.comboBoxDefaultImageProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDefaultImageProvider.FormattingEnabled = true;
+            this.comboBoxDefaultImageProvider.Location = new System.Drawing.Point(342, 177);
+            this.comboBoxDefaultImageProvider.Name = "comboBoxDefaultImageProvider";
+            this.comboBoxDefaultImageProvider.Size = new System.Drawing.Size(92, 21);
+            this.comboBoxDefaultImageProvider.TabIndex = 3;
+            this.comboBoxDefaultImageProvider.ValueMember = "Key";
+            // 
+            // labelDefaultTextProvider
+            // 
+            this.labelDefaultTextProvider.AutoSize = true;
+            this.labelDefaultTextProvider.Location = new System.Drawing.Point(4, 181);
+            this.labelDefaultTextProvider.Name = "labelDefaultTextProvider";
+            this.labelDefaultTextProvider.Size = new System.Drawing.Size(107, 13);
+            this.labelDefaultTextProvider.TabIndex = 2;
+            this.labelDefaultTextProvider.Text = "Default Text Provider";
+            // 
+            // comboBoxDefaultTextProvider
+            // 
+            this.comboBoxDefaultTextProvider.DisplayMember = "Name";
+            this.comboBoxDefaultTextProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDefaultTextProvider.FormattingEnabled = true;
+            this.comboBoxDefaultTextProvider.Location = new System.Drawing.Point(114, 177);
+            this.comboBoxDefaultTextProvider.Name = "comboBoxDefaultTextProvider";
+            this.comboBoxDefaultTextProvider.Size = new System.Drawing.Size(92, 21);
+            this.comboBoxDefaultTextProvider.TabIndex = 1;
+            this.comboBoxDefaultTextProvider.ValueMember = "Key";
+            // 
             // listViewProviders
-            //
-            this.listViewProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            // 
+            this.listViewProviders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewProviders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
@@ -194,27 +234,27 @@
             this.listViewProviders.UseCompatibleStateImageBehavior = false;
             this.listViewProviders.View = System.Windows.Forms.View.Details;
             this.listViewProviders.DoubleClick += new System.EventHandler(this.listViewProviders_DoubleClick);
-            //
+            // 
             // columnHeaderName
-            //
+            // 
             this.columnHeaderName.Text = "Name";
             this.columnHeaderName.Width = 150;
-            //
+            // 
             // columnHeaderVersion
-            //
+            // 
             this.columnHeaderVersion.Text = "Version";
-            //
+            // 
             // columnHeaderType
-            //
+            // 
             this.columnHeaderType.Text = "Type";
-            //
+            // 
             // columnHeaderDescription
-            //
+            // 
             this.columnHeaderDescription.Text = "Description";
             this.columnHeaderDescription.Width = 134;
-            //
+            // 
             // contextMenuStripProvider
-            //
+            // 
             this.contextMenuStripProvider.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
@@ -224,63 +264,63 @@
             this.contextMenuStripProvider.Name = "contextMenuStripProvider";
             this.contextMenuStripProvider.Size = new System.Drawing.Size(130, 82);
             this.contextMenuStripProvider.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripProvider_Opening);
-            //
+            // 
             // settingsToolStripMenuItem
-            //
+            // 
             this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.settingsToolStripMenuItem.Text = "&Settings...";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
-            //
+            // 
             // toolStripSeparator1
-            //
+            // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
-            //
+            // 
             // aboutToolStripMenuItem
-            //
+            // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            //
+            // 
             // toolStripSeparator2
-            //
+            // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(126, 6);
-            //
+            // 
             // disableToolStripMenuItem
-            //
+            // 
             this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
             this.disableToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.disableToolStripMenuItem.Text = "&Disable";
             this.disableToolStripMenuItem.Click += new System.EventHandler(this.disableToolStripMenuItem_Click);
-            //
+            // 
             // tabPageHotkeys
-            //
+            // 
             this.tabPageHotkeys.Location = new System.Drawing.Point(4, 22);
             this.tabPageHotkeys.Name = "tabPageHotkeys";
             this.tabPageHotkeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHotkeys.Size = new System.Drawing.Size(442, 164);
+            this.tabPageHotkeys.Size = new System.Drawing.Size(442, 206);
             this.tabPageHotkeys.TabIndex = 3;
             this.tabPageHotkeys.Text = "Hotkeys";
             this.tabPageHotkeys.UseVisualStyleBackColor = true;
-            //
+            // 
             // tabPageCapture
-            //
+            // 
             this.tabPageCapture.Controls.Add(this.checkBoxCaptureWindowShadow);
             this.tabPageCapture.Controls.Add(this.checkBoxCaptureCursor);
             this.tabPageCapture.Location = new System.Drawing.Point(4, 22);
             this.tabPageCapture.Name = "tabPageCapture";
             this.tabPageCapture.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCapture.Size = new System.Drawing.Size(442, 164);
+            this.tabPageCapture.Size = new System.Drawing.Size(442, 206);
             this.tabPageCapture.TabIndex = 1;
             this.tabPageCapture.Text = "Capture";
             this.tabPageCapture.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBoxCaptureWindowShadow
-            //
+            // 
             this.checkBoxCaptureWindowShadow.AutoSize = true;
             this.checkBoxCaptureWindowShadow.Location = new System.Drawing.Point(12, 33);
             this.checkBoxCaptureWindowShadow.Name = "checkBoxCaptureWindowShadow";
@@ -288,9 +328,9 @@
             this.checkBoxCaptureWindowShadow.TabIndex = 5;
             this.checkBoxCaptureWindowShadow.Text = "Capture &shadow when shooting single window";
             this.checkBoxCaptureWindowShadow.UseVisualStyleBackColor = true;
-            //
+            // 
             // checkBoxCaptureCursor
-            //
+            // 
             this.checkBoxCaptureCursor.AutoSize = true;
             this.checkBoxCaptureCursor.Location = new System.Drawing.Point(12, 10);
             this.checkBoxCaptureCursor.Name = "checkBoxCaptureCursor";
@@ -298,55 +338,19 @@
             this.checkBoxCaptureCursor.TabIndex = 4;
             this.checkBoxCaptureCursor.Text = "Capture &mouse cursor in screenshots";
             this.checkBoxCaptureCursor.UseVisualStyleBackColor = true;
-            //
+            // 
             // tabPageAbout
-            //
+            // 
             this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
             this.tabPageAbout.Name = "tabPageAbout";
             this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAbout.Size = new System.Drawing.Size(442, 164);
+            this.tabPageAbout.Size = new System.Drawing.Size(442, 206);
             this.tabPageAbout.TabIndex = 4;
             this.tabPageAbout.Text = "About";
             this.tabPageAbout.UseVisualStyleBackColor = true;
-            //
-            // comboBoxDefaultTextProvider
-            //
-            this.comboBoxDefaultTextProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDefaultTextProvider.FormattingEnabled = true;
-            this.comboBoxDefaultTextProvider.Location = new System.Drawing.Point(114, 177);
-            this.comboBoxDefaultTextProvider.Name = "comboBoxDefaultTextProvider";
-            this.comboBoxDefaultTextProvider.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxDefaultTextProvider.TabIndex = 1;
-            //
-            // labelDefaultTextProvider
-            //
-            this.labelDefaultTextProvider.AutoSize = true;
-            this.labelDefaultTextProvider.Location = new System.Drawing.Point(4, 181);
-            this.labelDefaultTextProvider.Name = "labelDefaultTextProvider";
-            this.labelDefaultTextProvider.Size = new System.Drawing.Size(107, 13);
-            this.labelDefaultTextProvider.TabIndex = 2;
-            this.labelDefaultTextProvider.Text = "Default Text Provider";
-            //
-            // labelDefaultImageProvider
-            //
-            this.labelDefaultImageProvider.AutoSize = true;
-            this.labelDefaultImageProvider.Location = new System.Drawing.Point(224, 181);
-            this.labelDefaultImageProvider.Name = "labelDefaultImageProvider";
-            this.labelDefaultImageProvider.Size = new System.Drawing.Size(115, 13);
-            this.labelDefaultImageProvider.TabIndex = 4;
-            this.labelDefaultImageProvider.Text = "Default Image Provider";
-            //
-            // comboBoxDefaultImageProvider
-            //
-            this.comboBoxDefaultImageProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDefaultImageProvider.FormattingEnabled = true;
-            this.comboBoxDefaultImageProvider.Location = new System.Drawing.Point(342, 177);
-            this.comboBoxDefaultImageProvider.Name = "comboBoxDefaultImageProvider";
-            this.comboBoxDefaultImageProvider.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxDefaultImageProvider.TabIndex = 3;
-            //
+            // 
             // Preferences
-            //
+            // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
