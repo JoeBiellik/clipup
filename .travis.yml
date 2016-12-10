@@ -1,7 +1,3 @@
 language: csharp
 mono: latest
 solution: ClipUp.sln
-
-cache:
-  directories:
-  - $HOME/.config/NuGet/packages
