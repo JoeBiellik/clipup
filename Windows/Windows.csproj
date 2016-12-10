@@ -40,8 +40,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JoeBiellik.Utils">
-      <HintPath>..\..\..\Visual Studio 2015\Projects\JoeBiellik.Utils\bin\Release\JoeBiellik.Utils.dll</HintPath>
+    <Reference Include="JoeBiellik.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JoeBiellik.Utils.1.0.0\lib\net45\JoeBiellik.Utils.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
