@@ -30,6 +30,7 @@ namespace ClipUp.Providers.Tinyimg
 
             multipartUpload.Files.Add(new MultipartFile
             {
+                // ReSharper disable once StringLiteralTypo
                 FieldName = "qqfile",
                 FileName = "upload." + options.Extention,
                 ContentType = options.MimeType,

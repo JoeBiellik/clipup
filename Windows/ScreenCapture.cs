@@ -43,6 +43,7 @@ namespace ClipUp.Windows
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
         [StructLayout(LayoutKind.Sequential)]
+        // ReSharper disable once IdentifierTypo
         private struct POINTAPI
         {
             public int x;
@@ -50,12 +51,15 @@ namespace ClipUp.Windows
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]
+        // ReSharper disable once IdentifierTypo
         private enum DWMWINDOWATTRIBUTE : uint
         {
             ExtendedFrameBounds = 9
         }
 
+        // ReSharper disable once StringLiteralTypo
         [DllImport("dwmapi.dll")]
+        // ReSharper disable once IdentifierTypo
         private static extern int DwmGetWindowAttribute(IntPtr hwnd, int dwAttribute, out Rect pvAttribute, int cbAttribute);
 
         [DllImport("user32.dll")]
@@ -68,6 +72,7 @@ namespace ClipUp.Windows
         private static extern bool GetCursorInfo(out CURSORINFO pci);
 
         [DllImport("user32.dll")]
+        // ReSharper disable once IdentifierTypo
         private static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw, int diFlags);
 
         private static bool GetExtendedFrameBounds(IntPtr handle, out Rectangle rectangle)

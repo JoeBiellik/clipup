@@ -19,6 +19,7 @@ namespace ClipUp.Windows.Forms
 
         private void Preferences_Load(object sender, EventArgs e)
         {
+            // ReSharper disable once AssignNullToNotNullAttribute
             this.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ClipUp.Windows.Resources.tray.ico"));
 
             // General
