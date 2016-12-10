@@ -64,22 +64,36 @@ namespace ClipUp.Windows
         {
             if (this.overlay.Visible) return;
 
-            if (e.Hotkey.Tag.ToString() == "PrintScreen")
+            switch (e.Hotkey.Tag.ToString())
             {
-                //ScreenCapture.CaptureAllScreens().Save(@"CaptureAllScreens.png", ImageFormat.Png);
-                //ScreenCapture.CapturePrimaryScreen().Save(@"CapturePrimaryScreen.png", ImageFormat.Png);
-                //ScreenCapture.CaptureActiveWindow().Save(@"CaptureActiveWindow.png", ImageFormat.Png);
-                //ScreenCapture.CaptureActiveWindow(true).Save(@"CaptureActiveWindow-shadow.png", ImageFormat.Png);
+                case "PrintScreen":
+                    //ScreenCapture.CaptureAllScreens().Save(@"CaptureAllScreens.png", ImageFormat.Png);
+                    //ScreenCapture.CapturePrimaryScreen().Save(@"CapturePrimaryScreen.png", ImageFormat.Png);
+                    //ScreenCapture.CaptureActiveWindow().Save(@"CaptureActiveWindow.png", ImageFormat.Png);
+                    //ScreenCapture.CaptureActiveWindow(true).Save(@"CaptureActiveWindow-shadow.png", ImageFormat.Png);
 
-                if (this.overlay.ShowDialog() == DialogResult.OK)
-                {
-                    //this.overlay.SelectedImage?.Save(@"selected.png", ImageFormat.Png);
+                    if (this.overlay.ShowDialog() == DialogResult.OK)
+                    {
+                        //this.overlay.SelectedImage?.Save(@"selected.png", ImageFormat.Png);
 
-                    await this.UploadImage(Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider).Select(p => p.Value.Provider).Cast<IImageUploadProvider>().First(), this.overlay.SelectedImage);
-                }
+                        await this.UploadImage((IImageUploadProvider)Settings.Instance.Providers.DefaultImageProvider.Value.Provider, this.overlay.SelectedImage);
+
+                        this.overlay.SelectedArea = Rectangle.Empty;
+                    }
+
+                    break;
+                case "Clipboard":
+                    if (Clipboard.ContainsText())
+                    {
+                        await this.UploadText((ITextUploadProvider)Settings.Instance.Providers.DefaultTextProvider.Value.Provider, Clipboard.GetText());
+                    }
+                    else if (Clipboard.ContainsImage())
+                    {
+                        await this.UploadImage((IImageUploadProvider)Settings.Instance.Providers.DefaultImageProvider.Value.Provider, Clipboard.GetImage());
+                    }
+
+                    break;
             }
-
-            this.overlay.SelectedArea = Rectangle.Empty;
         }
 
         private void ContextMenuStrip_Opening(object sender, CancelEventArgs e)
@@ -89,7 +103,7 @@ namespace ClipUp.Windows
             this.icon.ContextMenuStrip.Items.Clear();
 
             this.icon.ContextMenuStrip.Items.Add(new ToolStripLabel("Screenshot") { Enabled = false });
-            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Take Screenshot...", null, (s, a) => { this.HotkeyManager_KeyPressed(null, null); })
+            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("Take Screenshot...", null, (s, a) => { this.HotkeyManager_KeyPressed(null, new HotkeyPressedEventArgs(new Hotkey { Tag = "PrintScreen" })); })
             {
                 ShortcutKeyDisplayString = "PrtScn"
             });

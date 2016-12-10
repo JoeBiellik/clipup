@@ -33,7 +33,8 @@ namespace ClipUp.Windows
             {
                 Hotkeys = new List<Hotkey>
                 {
-                    new Hotkey(Key.PrintScreen, ModifierKeys.None, true, "PrintScreen")
+                    new Hotkey(Key.PrintScreen, ModifierKeys.None, true, "PrintScreen"),
+                    new Hotkey(Key.C, ModifierKeys.Control | ModifierKeys.Shift, true, "Clipboard")
                 }
             };
         }
