@@ -4,4 +4,4 @@ solution: ClipUp.sln
 
 cache:
   directories:
-  - $HOME/.nuget
+  - $HOME/.config/NuGet/packages
