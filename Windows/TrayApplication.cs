@@ -52,9 +52,9 @@ namespace ClipUp.Windows
                     Program.HotkeyManager.Register(hotkey);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // ignored
+                // TODO: Handle
             }
 
             Program.HotkeyManager.KeyPressed += this.HotkeyManager_KeyPressed;
