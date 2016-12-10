@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Drawing;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ClipUp.Sdk;
@@ -17,7 +16,7 @@ namespace ClipUp.Providers.Sprunge
         public override string Name => "sprunge";
         public override Version Version => new Version(1, 0, 0);
         public override string Website => "http://sprunge.us/";
-        public override Icon Icon => new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ClipUp.Providers.Sprunge.Icon.ico"));
+        public override Icon Icon => this.GetIcon();
         public override string Description => "sprunge text upload";
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";

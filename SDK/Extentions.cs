@@ -1,7 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using ClipUp.Sdk.Providers;
 
 namespace ClipUp.Sdk
 {
@@ -23,6 +26,43 @@ namespace ClipUp.Sdk
                 image.Save(ms, format);
 
                 return ms.ToArray();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Extention method helpers for upload providers.
+    /// </summary>
+    public static class UploadProviderExtentions
+    {
+        /// <summary>
+        /// Gets a resource stream embedded in a provider assembly.
+        /// </summary>
+        /// <param name="provider">The provider type to extract from.</param>
+        /// <param name="name">The resource name.</param>
+        /// <returns>A stream read from the resource.</returns>
+        public static Stream GetResource(this UploadProvider provider, string name)
+        {
+            var type = provider.GetType();
+
+            return Assembly.GetAssembly(type).GetManifestResourceStream($"{type.Namespace}.{name}");
+        }
+
+        /// <summary>
+        /// Gets an icon from a resource stream embedded in a provider assembly.
+        /// </summary>
+        /// <param name="provider">The provider type to extract from.</param>
+        /// <param name="name">The icon resource name.</param>
+        /// <returns>An icon read from the resource stream.</returns>
+        public static Icon GetIcon(this UploadProvider provider, string name = "Icon.ico")
+        {
+            try
+            {
+                return new Icon(provider.GetResource(name));
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -18,7 +17,7 @@ namespace ClipUp.Providers.Gist
         public override string Name => "GitHub Gist";
         public override Version Version => new Version(1, 0, 0);
         public override string Website => "https://gist.github.com/";
-        public override Icon Icon => new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ClipUp.Providers.Gist.Icon.ico"));
+        public override Icon Icon => this.GetIcon();
         public override string Description => "GitHub Gist text upload";
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";

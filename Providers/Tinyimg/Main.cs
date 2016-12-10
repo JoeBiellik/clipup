@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -19,7 +18,7 @@ namespace ClipUp.Providers.Tinyimg
         public override Version Version => new Version(1, 0, 0);
         public override string Website => "http://tinyimg.io/";
         public override string Description => "tinyimg.io image upload";
-        public override Icon Icon => new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("ClipUp.Providers.Tinyimg.Icon.ico"));
+        public override Icon Icon => this.GetIcon();
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
 
