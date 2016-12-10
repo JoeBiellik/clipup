@@ -27,7 +27,7 @@ namespace ClipUp.Providers.Cubeupload
         {
             var multipartUpload = new MultipartUpload();
 
-            multipartUpload.Forms.Add(new KeyValuePair<string, object>("name", "upload.png"));
+            multipartUpload.Forms.Add(new KeyValuePair<string, object>("name", "upload." + options.Extention));
             multipartUpload.Forms.Add(new KeyValuePair<string, object>("userHash", false));
             multipartUpload.Forms.Add(new KeyValuePair<string, object>("userID", false));
 
