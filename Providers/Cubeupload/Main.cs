@@ -35,8 +35,8 @@ namespace ClipUp.Providers.Cubeupload
             multipartUpload.Files.Add(new MultipartFile
             {
                 FieldName = "fileinput[0]",
-                ContentType = options.MimeType,
                 FileName = "upload." + options.Extention,
+                ContentType = options.MimeType,
                 Data = image.ToArray(options.Format)
             });
 

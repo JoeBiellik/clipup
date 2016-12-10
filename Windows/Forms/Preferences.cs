@@ -150,6 +150,7 @@ namespace ClipUp.Windows.Forms
         {
             return Settings.Instance.Providers.First(p => p.Key == this.listViewProviders.SelectedItems[0].Tag.ToString());
         }
+
         private void BuildProviderMenuDataSource()
         {
             this.comboBoxDefaultTextProvider.SelectedIndexChanged -= this.comboBoxDefaultTextProvider_SelectedIndexChanged;
