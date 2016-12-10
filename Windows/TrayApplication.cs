@@ -11,6 +11,7 @@ using ClipUp.Sdk;
 using ClipUp.Sdk.Interfaces;
 using ClipUp.Windows.Forms;
 using JoeBiellik.Utils.Hotkeys;
+using Timer = System.Windows.Forms.Timer;
 
 namespace ClipUp.Windows
 {
@@ -19,11 +20,19 @@ namespace ClipUp.Windows
         private readonly IContainer components = new Container();
         private readonly ScreenshotOverlay overlay = new ScreenshotOverlay();
         private readonly NotifyIcon icon;
+        private Preferences preferences = new Preferences();
+        private readonly Timer iconClickTimer = new Timer();
+        private bool isFirstClick = true;
+        private bool isDoubleClick;
+        private int milliseconds;
         private UploadResult lastResult;
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         public TrayApplication()
         {
+            this.iconClickTimer.Interval = 100;
+            this.iconClickTimer.Tick += this.iconClickTimer_Tick;
+
             this.icon = new NotifyIcon(this.components)
             {
                 ContextMenuStrip = new ContextMenuStrip(),
@@ -33,8 +42,7 @@ namespace ClipUp.Windows
             };
 
             this.icon.ContextMenuStrip.Opening += this.ContextMenuStrip_Opening;
-            this.icon.MouseUp += this.icon_MouseUp;
-            this.icon.DoubleClick += this.icon_DoubleClick;
+            this.icon.MouseDown += this.icon_MouseDown;
             this.icon.BalloonTipClicked += this.icon_BalloonTipClicked;
 
             try
@@ -90,21 +98,64 @@ namespace ClipUp.Windows
             this.BuildProviderMenu(this.icon.ContextMenuStrip);
 
             this.icon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("&Preferences...", null, (s, a) => { new Preferences().ShowDialog(); }));
+            this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("&Preferences...", null, (o, args) => this.ShowPreferences()));
             this.icon.ContextMenuStrip.Items.Add(new ToolStripMenuItem("&Exit", null, (s, a) => { Application.Exit(); }));
         }
 
-        private void icon_MouseUp(object sender, MouseEventArgs e)
+        private void icon_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button != MouseButtons.Left) return;
+
+            if (this.isFirstClick)
             {
-                typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(this.icon, null);
+                this.isFirstClick = false;
+
+                this.iconClickTimer.Start();
+            }
+            else
+            {
+                if (this.milliseconds < SystemInformation.DoubleClickTime)
+                {
+                    this.isDoubleClick = true;
+                }
             }
         }
 
-        private void icon_DoubleClick(object sender, EventArgs e)
+        private void iconClickTimer_Tick(object sender, EventArgs e)
         {
-            new Preferences().ShowDialog();
+            this.milliseconds += 100;
+
+            if (this.milliseconds >= SystemInformation.DoubleClickTime)
+            {
+                this.iconClickTimer.Stop();
+
+                if (this.isDoubleClick)
+                {
+                    this.ShowPreferences();
+                }
+                else
+                {
+                    typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(this.icon, null);
+                }
+
+                this.isFirstClick = true;
+                this.isDoubleClick = false;
+                this.milliseconds = 0;
+            }
+        }
+
+        private void ShowPreferences()
+        {
+            if (Application.OpenForms[nameof(this.preferences)] == null)
+            {
+                if (this.preferences.IsDisposed) this.preferences = new Preferences();
+
+                this.preferences.Show();
+            }
+            else
+            {
+                this.preferences.Focus();
+            }
         }
 
         private void icon_BalloonTipClicked(object sender, EventArgs e)
