@@ -8,6 +8,8 @@ namespace ClipUp.Windows.Forms
     {
         public Image SelectedImage => this.selectionPictureBox.SelectedImage;
 
+        public bool CaptureMouse { get; set; } = false;
+
         public Rectangle SelectedArea
         {
             get { return this.selectionPictureBox.SelectedArea; }
@@ -26,7 +28,7 @@ namespace ClipUp.Windows.Forms
             this.Bounds = Screen.FromPoint(MousePosition).Bounds;
             //this.Bounds = Screen.PrimaryScreen.Bounds;
 
-            this.selectionPictureBox.Image = ScreenCapture.CaptureBounds(this.Bounds);
+            this.selectionPictureBox.Image = ScreenCapture.CaptureBounds(this.Bounds, this.CaptureMouse);
             //this.selectionPictureBox.Image = ScreenCapture.CapturePrimaryScreen();
         }
 

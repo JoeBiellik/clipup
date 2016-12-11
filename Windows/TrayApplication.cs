@@ -72,14 +72,17 @@ namespace ClipUp.Windows
                     //ScreenCapture.CaptureActiveWindow().Save(@"CaptureActiveWindow.png", ImageFormat.Png);
                     //ScreenCapture.CaptureActiveWindow(true).Save(@"CaptureActiveWindow-shadow.png", ImageFormat.Png);
 
+                    this.overlay.CaptureMouse = Settings.Instance.CaptureCursor;
+
                     if (this.overlay.ShowDialog() == DialogResult.OK)
                     {
                         //this.overlay.SelectedImage?.Save(@"selected.png", ImageFormat.Png);
 
                         await this.UploadImage((IImageUploadProvider)Settings.Instance.Providers.DefaultImageProvider.Value.Provider, this.overlay.SelectedImage);
 
-                        this.overlay.SelectedArea = Rectangle.Empty;
                     }
+
+                    this.overlay.SelectedArea = Rectangle.Empty;
 
                     break;
                 case "Clipboard":
