@@ -83,13 +83,17 @@ namespace ClipUp.Windows
 
                     break;
                 case "Clipboard":
-                    if (Clipboard.ContainsText())
+                    var clipboard = Clipboard.DetectType();
+
+                    switch (clipboard.Item1)
                     {
-                        await this.UploadText((ITextUploadProvider)Settings.Instance.Providers.DefaultTextProvider.Value.Provider, Clipboard.GetText());
-                    }
-                    else if (Clipboard.ContainsImage())
-                    {
-                        await this.UploadImage((IImageUploadProvider)Settings.Instance.Providers.DefaultImageProvider.Value.Provider, Clipboard.GetImage());
+                        case ClipboardType.Text:
+                            await this.UploadText((ITextUploadProvider)Settings.Instance.Providers.DefaultTextProvider.Value.Provider, clipboard.Item2.ToString());
+                            break;
+
+                        case ClipboardType.Image:
+                            await this.UploadImage((IImageUploadProvider)Settings.Instance.Providers.DefaultImageProvider.Value.Provider, (Image)clipboard.Item2);
+                            break;
                     }
 
                     break;
@@ -179,39 +183,58 @@ namespace ClipUp.Windows
 
         private void BuildProviderMenu(ToolStrip menu)
         {
-            if (Clipboard.ContainsText())
-            {
-                menu.Items.Add(new ToolStripLabel("Clipboard (Text)") { Enabled = false });
+            var clipboard = Clipboard.DetectType();
 
-                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled).OrderBy(p => p.Key))
-                {
-                    menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
-                    {
-                        await this.UploadText((ITextUploadProvider)provider.Value.Provider, Clipboard.GetText());
-                    })
-                    {
-                        Image = provider.Value.Provider.Icon?.ToBitmap()
-                    });
-                }
-            }
-            else if (Clipboard.ContainsImage())
+            switch (clipboard.Item1)
             {
-                menu.Items.Add(new ToolStripLabel("Clipboard (Image)") { Enabled = false });
+                case ClipboardType.Text:
+                    this.AddTextUploadMenuItems(menu, clipboard.Item2.ToString());
+                    break;
 
-                foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled).OrderBy(p => p.Key))
-                {
-                    menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
-                    {
-                        await this.UploadImage((IImageUploadProvider)provider.Value.Provider, Clipboard.GetImage());
-                    })
-                    {
-                        Image = provider.Value.Provider.Icon?.ToBitmap()
-                    });
-                }
+                case ClipboardType.Image:
+                    this.AddImageUploadMenuItems(menu, (Image)clipboard.Item2);
+                    break;
+
+                default:
+                    this.AddEmptyItem(menu);
+                    break;
             }
-            else
+        }
+
+        private void AddEmptyItem(ToolStrip menu)
+        {
+            menu.Items.Add(new ToolStripLabel("Copy an image or text to upload") { Enabled = false });
+        }
+
+        private void AddTextUploadMenuItems(ToolStrip menu, string data)
+        {
+            menu.Items.Add(new ToolStripLabel("Clipboard (Text)") { Enabled = false });
+
+            foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is ITextUploadProvider && p.Value.Enabled).OrderBy(p => p.Key))
             {
-                menu.Items.Add(new ToolStripLabel("Copy an image or text to upload") { Enabled = false });
+                menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
+                {
+                    await this.UploadText((ITextUploadProvider)provider.Value.Provider, data);
+                })
+                {
+                    Image = provider.Value.Provider.Icon?.ToBitmap()
+                });
+            }
+        }
+
+        private void AddImageUploadMenuItems(ToolStrip menu, Image data)
+        {
+            menu.Items.Add(new ToolStripLabel("Clipboard (Image)") { Enabled = false });
+
+            foreach (var provider in Settings.Instance.Providers.Where(p => p.Value.Provider is IImageUploadProvider && p.Value.Enabled).OrderBy(p => p.Key))
+            {
+                menu.Items.Add(new ToolStripMenuItem(provider.Value.Provider.Name, null, async (s, a) =>
+                {
+                    await this.UploadImage((IImageUploadProvider)provider.Value.Provider, data);
+                })
+                {
+                    Image = provider.Value.Provider.Icon?.ToBitmap()
+                });
             }
         }
 
@@ -269,7 +292,7 @@ namespace ClipUp.Windows
         {
             this.lastResult = result;
 
-            if (Settings.Instance.CopyLink) Clipboard.SetText(result.Url);
+            if (Settings.Instance.CopyLink) System.Windows.Forms.Clipboard.SetText(result.Url);
 
             if (Settings.Instance.OpenLink) Process.Start(result.Url);
 
