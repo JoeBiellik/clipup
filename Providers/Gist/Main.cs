@@ -21,7 +21,7 @@ namespace ClipUp.Providers.Gist
         public override string Description => "GitHub Gist text upload";
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
-        public override long MaxSize => -1;
+        public override long MaxSize => 1024 * 1024 * 10; // 10MB
 
         public override async Task<UploadResult> UploadText(TextUploadOptions options, string text)
         {

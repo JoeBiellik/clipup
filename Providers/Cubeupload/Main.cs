@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.Windows.Forms;
 using ClipUp.Sdk;
+using ClipUp.Sdk.Interfaces;
 using ClipUp.Sdk.Providers;
 
 namespace ClipUp.Providers.Cubeupload
 {
-    public class Cubeupload : ImageUploadProvider
+    public class Cubeupload : ImageUploadProvider, IConfigurableProvider
     {
         private const string UPLOAD_URL = "http://cubeupload.com/upload_json.php";
 
@@ -21,7 +24,16 @@ namespace ClipUp.Providers.Cubeupload
         public override Icon Icon => this.GetIcon();
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
-        public override long MaxSize => -1;
+        public override long MaxSize => 1024 * 1024 * 5; // 5MB
+
+        /// <summary>
+        /// Gets or sets whether the result URL should be a direct link to the uploaded image.
+        /// Defaults to true.
+        /// User configurable.
+        /// </summary>
+        /// <seealso cref="UploadResult.Url"/>
+        [DefaultValue(true)]
+        public bool DirectLink { get; set; } = true;
 
         public override async Task<UploadResult> UploadImage(ImageUploadOptions options, Image image, IProgress<int> progress)
         {
@@ -65,9 +77,28 @@ namespace ClipUp.Providers.Cubeupload
                 return new UploadResult
                 {
                     Success = true,
-                    Url = this.Website + "im/" + json["file_name"]
+                    Url = this.DirectLink ? "http://i.cubeupload.com/" + json["file_name"] : this.Website + "im/" + json["file_name"]
                 };
             }
+        }
+
+        public void Configure(Control.ControlCollection controls)
+        {
+            var checkboxDirectLink = new CheckBox
+            {
+                AutoSize = true,
+                Location = new Point(5, 5),
+                Text = "Link directly to image",
+                Checked = this.DirectLink,
+                TabIndex = 0
+            };
+
+            checkboxDirectLink.CheckedChanged += (s, e) =>
+            {
+                this.DirectLink = checkboxDirectLink.Checked;
+            };
+
+            controls.Add(checkboxDirectLink);
         }
     }
 }

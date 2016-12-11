@@ -20,7 +20,7 @@ namespace ClipUp.Providers.PasteFyi
         public override Icon Icon => this.GetIcon();
         public override string AuthorName => "Joe Biellik";
         public override string AuthorWebsite => "https://github.com/JoeBiellik/clipup";
-        public override long MaxSize => -1;
+        public override long MaxSize => 1024 * 1024 * 2; // 2MB
 
         public override async Task<UploadResult> UploadText(TextUploadOptions options, string text)
         {
