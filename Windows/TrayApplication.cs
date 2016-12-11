@@ -209,6 +209,10 @@ namespace ClipUp.Windows
                     });
                 }
             }
+            else
+            {
+                menu.Items.Add(new ToolStripLabel("Copy an image or text to upload") { Enabled = false });
+            }
         }
 
         private async Task UploadText(ITextUploadProvider provider, string text)
