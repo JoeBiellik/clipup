@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,12 +70,12 @@ namespace ClipUp.Providers.Pastebin
                 {
                     {"api_option", "paste"},
                     {"api_dev_key", KEY},
-                    {"api_user_key", string.Empty},                 // Guest
+                    {"api_user_key", string.Empty},             // Guest
                     {"api_paste_private", this.Visibility},     // 0=public 1=unlisted 2=private
-                    {"api_paste_name", string.Empty},               // Name
-                    {"api_paste_code", text},                       // Text
-                    {"api_paste_expire_date", this.Expiry},         // Expiry
-                    {"api_paste_format", "text"}                    // Highlighting
+                    {"api_paste_name", string.Empty},           // Name
+                    {"api_paste_code", text},                   // Text
+                    {"api_paste_expire_date", this.Expiry},     // Expiry
+                    {"api_paste_format", "text"}                // Highlighting
                 }));
 
                 if (responce.StartsWith("Bad API request"))
@@ -128,7 +127,7 @@ namespace ClipUp.Providers.Pastebin
             {
                 AutoSize = true,
                 Location = new Point(5, 35),
-                TabIndex = 0,
+                TabIndex = 2,
                 Text = "Upload privacy"
             });
 
@@ -136,7 +135,7 @@ namespace ClipUp.Providers.Pastebin
             {
                 AutoSize = true,
                 Location = new Point(85, 32),
-                TabIndex = 1,
+                TabIndex = 3,
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 DataSource = this.visibility,
                 ValueMember = "Key",
