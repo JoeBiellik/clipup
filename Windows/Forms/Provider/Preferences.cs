@@ -24,7 +24,16 @@ namespace ClipUp.Windows.Forms.Provider
         {
             this.Text = this.Provider.Name + " Provider Preferences";
 
-            (this.Provider as IConfigurableProvider)?.Configure(this.panel.Controls);
+            try
+            {
+                (this.Provider as IConfigurableProvider)?.Configure(this.panel.Controls);
+            }
+            catch (Exception)
+            {
+                // TODO: Handle
+
+                throw;
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
