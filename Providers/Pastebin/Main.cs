@@ -18,7 +18,7 @@ namespace ClipUp.Providers.Pastebin
         private const string UPLOAD_URL = "http://pastebin.com/api/api_post.php";
         private const string KEY = "64269a656668650a05cf01becfb9d05c";
 
-        private readonly BindingList<KeyValuePair<string, string>> expiries = new BindingList<KeyValuePair<string, string>>()
+        private readonly BindingList<KeyValuePair<string, string>> expiries = new BindingList<KeyValuePair<string, string>>
         {
             new KeyValuePair<string, string>("10M", "10 Minutes"),
             new KeyValuePair<string, string>("1H", "1 Hour"),
@@ -29,7 +29,7 @@ namespace ClipUp.Providers.Pastebin
             new KeyValuePair<string, string>("N", "Never")
         };
 
-        private readonly BindingList<KeyValuePair<string, string>> visibility = new BindingList<KeyValuePair<string, string>>()
+        private readonly BindingList<KeyValuePair<string, string>> visibility = new BindingList<KeyValuePair<string, string>>
         {
             new KeyValuePair<string, string>("0", "Public"),
             new KeyValuePair<string, string>("1", "Unlisted")
@@ -105,7 +105,7 @@ namespace ClipUp.Providers.Pastebin
                 Text = "Upload expiry"
             });
 
-            var comboBoxExpiry = new ComboBox()
+            var comboBoxExpiry = new ComboBox
             {
                 AutoSize = true,
                 Location = new Point(85, 2),
@@ -123,6 +123,8 @@ namespace ClipUp.Providers.Pastebin
 
             controls.Add(comboBoxExpiry);
 
+            comboBoxExpiry.SelectedValue = this.Expiry;
+
             controls.Add(new Label
             {
                 AutoSize = true,
@@ -131,7 +133,7 @@ namespace ClipUp.Providers.Pastebin
                 Text = "Upload privacy"
             });
 
-            var comboBoxVisibility = new ComboBox()
+            var comboBoxVisibility = new ComboBox
             {
                 AutoSize = true,
                 Location = new Point(85, 32),
