@@ -9,9 +9,9 @@ using ClipUp.Sdk.Providers;
 namespace ClipUp.Sdk
 {
     /// <summary>
-    /// Extention method helpers for image operations.
+    /// Extension method helpers for image operations.
     /// </summary>
-    public static class ImageExtentions
+    public static class ImageExtensions
     {
         /// <summary>
         /// Converts an image into a byte array.
@@ -31,9 +31,9 @@ namespace ClipUp.Sdk
     }
 
     /// <summary>
-    /// Extention method helpers for upload providers.
+    /// Extension method helpers for upload providers.
     /// </summary>
-    public static class UploadProviderExtentions
+    public static class UploadProviderExtensions
     {
         /// <summary>
         /// Gets a resource stream embedded in a provider assembly.
@@ -68,7 +68,7 @@ namespace ClipUp.Sdk
     }
 
     /// <summary>
-    /// Extention method helpers for stream operations.
+    /// Extension method helpers for stream operations.
     /// </summary>
     public static class StreamExtensions
     {

@@ -42,9 +42,9 @@ namespace ClipUp.Sdk
         public string MimeType => ImageCodecInfo.GetImageEncoders().First(codec => codec.FormatID == this.Format.Guid).MimeType;
 
         /// <summary>
-        /// Gets or sets the target image file extention that should be uploaded. Defaults to the extention used by <see cref="Format"/>.
+        /// Gets or sets the target image file extension that should be uploaded. Defaults to the extension used by <see cref="Format"/>.
         /// </summary>
-        /// <value>The image file extention.</value>
-        public string Extention => ImageCodecInfo.GetImageEncoders().Where(codec => codec.FormatID == this.Format.Guid).Select(ie => ie.FilenameExtension.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).First().Substring(2).ToLower()).FirstOrDefault() ?? this.Format.ToString().ToLower();
+        /// <value>The image file extension.</value>
+        public string Extension => ImageCodecInfo.GetImageEncoders().Where(codec => codec.FormatID == this.Format.Guid).Select(ie => ie.FilenameExtension.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).First().Substring(2).ToLower()).FirstOrDefault() ?? this.Format.ToString().ToLower();
     }
 }

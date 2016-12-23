@@ -39,14 +39,14 @@ namespace ClipUp.Providers.Cubeupload
         {
             var multipartUpload = new MultipartUpload();
 
-            multipartUpload.Forms.Add(new KeyValuePair<string, object>("name", "upload." + options.Extention));
+            multipartUpload.Forms.Add(new KeyValuePair<string, object>("name", "upload." + options.Extension));
             multipartUpload.Forms.Add(new KeyValuePair<string, object>("userHash", false));
             multipartUpload.Forms.Add(new KeyValuePair<string, object>("userID", false));
 
             multipartUpload.Files.Add(new MultipartFile
             {
                 FieldName = "fileinput[0]",
-                FileName = "upload." + options.Extention,
+                FileName = "upload." + options.Extension,
                 ContentType = options.MimeType,
                 Data = image.ToArray(options.Format)
             });

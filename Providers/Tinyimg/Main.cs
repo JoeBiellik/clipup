@@ -31,7 +31,7 @@ namespace ClipUp.Providers.Tinyimg
             {
                 // ReSharper disable once StringLiteralTypo
                 FieldName = "qqfile",
-                FileName = "upload." + options.Extention,
+                FileName = "upload." + options.Extension,
                 ContentType = options.MimeType,
                 Data = image.ToArray(options.Format)
             });

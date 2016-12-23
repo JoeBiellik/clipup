@@ -59,7 +59,7 @@ namespace ClipUp.Providers.PasteFyi
             {
                 client.Headers.Add(HttpRequestHeader.UserAgent, options.UserAgent);
 
-                var responce = Encoding.Default.GetString(await client.UploadValuesTaskAsync(UPLOAD_URL, "POST", new NameValueCollection
+                var response = Encoding.Default.GetString(await client.UploadValuesTaskAsync(UPLOAD_URL, "POST", new NameValueCollection
                 {
                     {"paste", text},
                     {"expire", (this.ExpiryDuration * this.periods.First(d => d.Value == this.ExpiryPeriod).Key).ToString()}
@@ -68,7 +68,7 @@ namespace ClipUp.Providers.PasteFyi
                 return new UploadResult
                 {
                     Success = true,
-                    Url = responce
+                    Url = response
                 };
             }
         }

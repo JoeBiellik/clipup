@@ -40,7 +40,7 @@ namespace ClipUp.Providers.Prntscr
             multipartUpload.Files.Add(new MultipartFile
             {
                 FieldName = "image",
-                FileName = "upload." + options.Extention,
+                FileName = "upload." + options.Extension,
                 ContentType = options.MimeType,
                 Data = image.ToArray(options.Format)
             });
