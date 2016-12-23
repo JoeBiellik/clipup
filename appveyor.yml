@@ -23,7 +23,7 @@ test: off
 
 assembly_info:
   patch: true
-  file: '**\AssemblyInfo.*'
+  file: Windows\Properties\AssemblyInfo.cs
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
@@ -33,14 +33,6 @@ artifacts:
   name: ClipUp-$(appveyor_build_version)
 
 deploy:
-- provider: GitHub
-  auth_token:
-    secure: Xg+sCmYE34JMq6uykYa4P9pS4RjGS/V11cA+ffcd6RJQQ+WG+y6hXSaNx/av3edk
-  artifact: ClipUp-$(appveyor_build_version)
-  force_update: true
-  on:
-    appveyor_repo_tag: true
-
 - provider: BinTray
   username: joebiellik
   subject: joebiellik
@@ -51,3 +43,11 @@ deploy:
   artifact: ClipUp-$(appveyor_build_version)
   publish: true
   override: true
+
+- provider: GitHub
+  auth_token:
+    secure: Xg+sCmYE34JMq6uykYa4P9pS4RjGS/V11cA+ffcd6RJQQ+WG+y6hXSaNx/av3edk
+  artifact: ClipUp-$(appveyor_build_version)
+  force_update: true
+  on:
+    appveyor_repo_tag: true
