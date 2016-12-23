@@ -3,6 +3,7 @@
 [![Dependency Status](https://img.shields.io/versioneye/d/user/projects/584b570ddf01d500374be6cd.svg)](https://www.versioneye.com/user/projects/584b570ddf01d500374be6cd)
 [![Build Status](https://img.shields.io/travis/JoeBiellik/clipup.svg)](https://travis-ci.org/JoeBiellik/clipup)
 [![Release Version](https://img.shields.io/github/release/JoeBiellik/clipup.svg)](https://github.com/JoeBiellik/clipup/releases)
+[![Dev Version](https://img.shields.io/bintray/v/joebiellik/clipup/ClipUp.svg?label=dev)](https://dl.bintray.com/joebiellik/clipup/)
 <img align="right" alt="Screenshot" src="https://cloud.githubusercontent.com/assets/43646/21069322/8f04cf4e-be70-11e6-9518-d4d96fdc2834.png">
 
 Tiny portable tray application to upload and share your clipboard and screenshots.
