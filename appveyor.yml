@@ -1,0 +1,53 @@
+version: 1.0.0.{build}
+configuration: Release
+platform: Any CPU
+
+clone_depth: 1
+
+branches:
+  only:
+    - master
+
+cache: packages -> **\packages.config
+
+before_build:
+- cmd: nuget restore
+
+build:
+  verbosity: minimal
+
+after_build:
+- cmd: del Windows\bin\$(configuration)\*.pdb
+
+test: off
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
+artifacts:
+- path: Windows\bin\$(configuration)
+  name: ClipUp-$(appveyor_build_version)
+
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: Xg+sCmYE34JMq6uykYa4P9pS4RjGS/V11cA+ffcd6RJQQ+WG+y6hXSaNx/av3edk
+  artifact: ClipUp-$(appveyor_build_version)
+  force_update: true
+  on:
+    appveyor_repo_tag: true
+
+- provider: BinTray
+  username: joebiellik
+  subject: joebiellik
+  repo: clipup
+  package: ClipUp
+  api_key:
+    secure: YIZzHQi4FWe0NgWrs98krkGKWd+t8A1Xo5SVF6BTnu7KMu94AJBnmZhDTTAZPchj
+  artifact: ClipUp-$(appveyor_build_version)
+  publish: true
+  override: true
