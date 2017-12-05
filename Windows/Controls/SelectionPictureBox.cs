@@ -64,9 +64,9 @@ namespace ClipUp.Windows.Controls
 
                 using (var g = Graphics.FromImage(img))
                 {
-                    //g.CompositingQuality = CompositingQuality.HighQuality;
-                    //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    //g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
 
                     g.DrawImage(this.Image, new Rectangle(0, 0, img.Width, img.Height), this.SelectedArea, GraphicsUnit.Pixel);
                 }
@@ -321,24 +321,28 @@ namespace ClipUp.Windows.Controls
             var top = this.SelectedArea.Top;
             var right = this.SelectedArea.Right;
             var bottom = this.SelectedArea.Bottom;
+            var padding = 2;
 
             if (resizingTopEdge)
             {
                 top = cursorPosition.Y > 0 ? cursorPosition.Y : 0;
+                top = top >= bottom - padding ? bottom - padding : top;
             }
             else if (resizingBottomEdge)
             {
                 bottom = cursorPosition.Y < this.ClientRectangle.Height ? cursorPosition.Y : this.ClientRectangle.Height;
+                bottom = bottom <= top + padding ? top + padding : bottom;
             }
 
             if (resizingLeftEdge)
             {
                 left = cursorPosition.X > 0 ? cursorPosition.X : 0;
+                left = left >= right - padding ? right - padding : left;
             }
             else if (resizingRightEdge)
             {
                 right = cursorPosition.X < this.ClientRectangle.Width ? cursorPosition.X : this.ClientRectangle.Width;
-
+                right = right <= left + padding ? left + padding : right;
             }
 
             this.SelectedArea = new Rectangle(left, top, right - left, bottom - top);
@@ -403,16 +407,16 @@ namespace ClipUp.Windows.Controls
         public class DragHandleCollection : IEnumerable<DragHandle>
         {
             private readonly IDictionary<DragHandleAnchor, DragHandle> items = new Dictionary<DragHandleAnchor, DragHandle>
-        {
-            { DragHandleAnchor.TopLeft, new DragHandle(DragHandleAnchor.TopLeft) },
-            { DragHandleAnchor.TopCenter, new DragHandle(DragHandleAnchor.TopCenter) },
-            { DragHandleAnchor.TopRight, new DragHandle(DragHandleAnchor.TopRight) },
-            { DragHandleAnchor.MiddleLeft, new DragHandle(DragHandleAnchor.MiddleLeft) },
-            { DragHandleAnchor.MiddleRight, new DragHandle(DragHandleAnchor.MiddleRight) },
-            { DragHandleAnchor.BottomLeft, new DragHandle(DragHandleAnchor.BottomLeft) },
-            { DragHandleAnchor.BottomCenter, new DragHandle(DragHandleAnchor.BottomCenter) },
-            { DragHandleAnchor.BottomRight, new DragHandle(DragHandleAnchor.BottomRight) }
-        };
+            {
+                { DragHandleAnchor.TopLeft, new DragHandle(DragHandleAnchor.TopLeft) },
+                { DragHandleAnchor.TopCenter, new DragHandle(DragHandleAnchor.TopCenter) },
+                { DragHandleAnchor.TopRight, new DragHandle(DragHandleAnchor.TopRight) },
+                { DragHandleAnchor.MiddleLeft, new DragHandle(DragHandleAnchor.MiddleLeft) },
+                { DragHandleAnchor.MiddleRight, new DragHandle(DragHandleAnchor.MiddleRight) },
+                { DragHandleAnchor.BottomLeft, new DragHandle(DragHandleAnchor.BottomLeft) },
+                { DragHandleAnchor.BottomCenter, new DragHandle(DragHandleAnchor.BottomCenter) },
+                { DragHandleAnchor.BottomRight, new DragHandle(DragHandleAnchor.BottomRight) }
+            };
 
             public int Count => this.items.Count;
 
