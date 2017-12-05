@@ -46,11 +46,11 @@ namespace ClipUp.Providers.Pastebin
 
         /// <summary>
         /// Gets or sets the upload expiry time.
-        /// Defaults to 1 hour.
+        /// Defaults to 1 week.
         /// User configurable.
         /// </summary>
-        [DefaultValue("1H")]
-        public string Expiry { get; set; } = "1H";
+        [DefaultValue("1W")]
+        public string Expiry { get; set; } = "1W";
 
         /// <summary>
         /// Gets or sets the upload visibility level.
