@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 namespace ClipUp.Windows.Forms
 {
+
     public partial class ScreenshotOverlay : Form
     {
         public Image SelectedImage => this.selectionPictureBox.SelectedImage;
@@ -21,6 +22,9 @@ namespace ClipUp.Windows.Forms
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
 
             this.InitializeComponent();
+
+            this.toolStrip.Renderer = new ToolStripProfessionalRenderer(new CustomColorTable());
+            this.toolStrip.Visible = false;
         }
 
         private void ScreenshotOverlay_Load(object sender, EventArgs e)
@@ -63,7 +67,25 @@ namespace ClipUp.Windows.Forms
 
         private void selectionPictureBox_SelectedAreaChanged(object sender, EventArgs e)
         {
+            this.toolStrip.Visible = true;
+            this.toolStrip.Location = new Point(this.selectionPictureBox.SelectedArea.Right - this.toolStrip.Width - 5, this.selectionPictureBox.SelectedArea.Bottom + 10);
+        }
 
+        private void selectionPictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.DialogResult = DialogResult.Cancel;
+
+                this.Close();
+            }
+        }
+
+        private class CustomColorTable : ProfessionalColorTable
+        {
+            public override Color ToolStripBorder => Color.White;
+            public override Color ToolStripGradientBegin => Color.White;
+            public override Color ToolStripGradientEnd => Color.White;
         }
     }
 }
