@@ -23,7 +23,7 @@ namespace ClipUp.Windows
         public ImageFormat UploadFormat { get; set; } = ImageFormat.Png;
         public int UploadQuality { get; set; } = 90;
         public string DefaultTextProvider { get; set; } = "PasteFyi";
-        public string DefaultImageProvider { get; set; } = "Imgur";
+        public string DefaultImageProvider { get; set; } = "PastePictures";
         public List<Hotkey> Hotkeys { get; set; } = new List<Hotkey>();
         public ProviderDictionary Providers { get; set; } = new ProviderDictionary();
 
