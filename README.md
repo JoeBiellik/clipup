@@ -25,7 +25,8 @@ Name | Type | Status
 [GitHub Gist](https://gist.github.com/) | Text | Working
 [Imgur](https://imgur.com/) | Image | Working
 [Pastebin.com](http://pastebin.com/) | Text | Working
-[paste.fyi](http://paste.fyi/) | Text | Working
+[paste.fyi](https://paste.fyi/) | Text | Working
+[paste.pictures](https://paste.pictures/) | Image | Working
 [prntscr.com](http://prntscr.com/) | Image | Working
 [sprunge](http://sprunge.us/) | Text | Working
 [Tinyimg](http://tinyimg.io/) | Image | Working
