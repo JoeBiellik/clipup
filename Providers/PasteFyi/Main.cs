@@ -16,7 +16,7 @@ namespace ClipUp.Providers.PasteFyi
 {
     public class PasteFyi : TextUploadProvider, IConfigurableProvider
     {
-        private const string UPLOAD_URL = "http://paste.fyi/";
+        private const string UPLOAD_URL = "https://paste.fyi/";
 
         private readonly BindingList<KeyValuePair<uint, string>> periods = new BindingList<KeyValuePair<uint, string>>
         {
@@ -30,7 +30,7 @@ namespace ClipUp.Providers.PasteFyi
 
         public override string Name => "paste.fyi";
         public override Version Version => new Version(1, 0, 0);
-        public override string Website => "http://paste.fyi/";
+        public override string Website => "https://paste.fyi/";
         public override string Description => "paste.fyi text upload";
         public override Icon Icon => this.GetIcon();
         public override string AuthorName => "Joe Biellik";
