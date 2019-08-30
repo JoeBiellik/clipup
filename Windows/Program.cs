@@ -29,6 +29,8 @@ namespace ClipUp.Windows
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             SetupLogging();
 
             LoadProviders();
