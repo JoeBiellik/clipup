@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using FormsClipboard = System.Windows.Forms.Clipboard;
@@ -49,12 +49,10 @@ namespace ClipUp.Windows
                 return new Tuple<ClipboardType, object>(ClipboardType.Empty, null);
             }
         }
-
-
+        
         private static bool HasBinaryContent(string content)
         {
             return content.Any(ch => char.IsControl(ch) && ch != '\r' && ch != '\n');
         }
-
     }
 }

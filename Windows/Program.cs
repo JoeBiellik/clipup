@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using ClipUp.Sdk;
@@ -29,6 +30,7 @@ namespace ClipUp.Windows
             Application.SetCompatibleTextRenderingDefault(false);
 
             SetupLogging();
+
             LoadProviders();
 
             try
@@ -48,7 +50,7 @@ namespace ClipUp.Windows
         {
             var fileLog = new FileTarget
             {
-                FileName = $"${{basedir}}/{typeof(Program).Assembly.GetName().Name}.log",
+                FileName = $@"${{basedir}}{typeof(Program).Assembly.GetName().Name}.log",
                 // ReSharper disable once StringLiteralTypo
                 Layout = @"[${date:universalTime=true:format=yyyy-MM-ddTHH\:mm\:ssK}] ${level:uppercase=true}: ${message} ${exception:format=tostring}"
             };
